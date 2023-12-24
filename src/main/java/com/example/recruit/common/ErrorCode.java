@@ -1,4 +1,4 @@
-package top.lldwb.usercenterbackend.common;
+package com.example.recruit.common;
 
 /**
  * 返回码
