@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.recruit.mapper.FavoriteMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.recruit.domain.Favorite">
+            <id property="favoriteid" column="favoriteId" jdbcType="INTEGER"/>
+            <result property="fidPositionid" column="fId_positionId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        favoriteId,fId_positionId
+    </sql>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.recruit.mapper.PositionMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.recruit.domain.Position">
+            <id property="positionid" column="positionId" jdbcType="INTEGER"/>
+            <result property="positionname" column="positionName" jdbcType="VARCHAR"/>
+            <result property="salary" column="salary" jdbcType="DECIMAL"/>
+            <result property="jobrequirements" column="jobRequirements" jdbcType="VARCHAR"/>
+            <result property="positionrtatement" column="positionRtatement" jdbcType="VARCHAR"/>
+            <result property="arrangement" column="arrangement" jdbcType="VARCHAR"/>
+            <result property="otherdescription" column="otherDescription" jdbcType="VARCHAR"/>
+            <result property="pidUnitid" column="pId_unitId" jdbcType="INTEGER"/>
+            <result property="period" column="period" jdbcType="VARCHAR"/>
+            <result property="periodyong" column="periodYong" jdbcType="VARCHAR"/>
+            <result property="starttime" column="startTime" jdbcType="VARCHAR"/>
+            <result property="endtime" column="endTime" jdbcType="VARCHAR"/>
+            <result property="heat" column="heat" jdbcType="VARCHAR"/>
+            <result property="positionstate" column="positionState" jdbcType="VARCHAR"/>
+            <result property="affiliatedunit" column="affiliatedUnit" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        positionId,positionName,salary,
+        jobRequirements,positionRtatement,arrangement,
+        otherDescription,pId_unitId,period,
+        periodYong,startTime,endTime,
+        heat,positionState,affiliatedUnit
+    </sql>
+</mapper>

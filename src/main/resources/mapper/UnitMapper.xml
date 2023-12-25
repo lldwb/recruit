@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.recruit.mapper.UnitMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.recruit.domain.Unit">
+            <id property="unitid" column="unitId" jdbcType="INTEGER"/>
+            <result property="unitname" column="unitName" jdbcType="VARCHAR"/>
+            <result property="uidRegionid" column="uId_regionId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        unitId,unitName,uId_regionId
+    </sql>
+</mapper>

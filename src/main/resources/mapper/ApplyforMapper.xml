@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.recruit.mapper.ApplyforMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.recruit.domain.Applyfor">
+            <id property="applyforid" column="applyForId" jdbcType="INTEGER"/>
+            <result property="aidUserid" column="aId_userId" jdbcType="INTEGER"/>
+            <result property="aidPositionid" column="aId_positionId" jdbcType="INTEGER"/>
+            <result property="state" column="state" jdbcType="VARCHAR"/>
+            <result property="cause" column="cause" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        applyForId,aId_userId,aId_positionId,
+        state,cause
+    </sql>
+</mapper>

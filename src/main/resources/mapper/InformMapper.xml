@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.recruit.mapper.InformMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.recruit.domain.Inform">
+            <id property="informid" column="informId" jdbcType="INTEGER"/>
+            <result property="iidUserid" column="iId_userId" jdbcType="INTEGER"/>
+            <result property="iidPositionid" column="iId_positionId" jdbcType="INTEGER"/>
+            <result property="message" column="message" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        informId,iId_userId,iId_positionId,
+        message
+    </sql>
+</mapper>
