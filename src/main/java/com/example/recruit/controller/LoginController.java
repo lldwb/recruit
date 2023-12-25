@@ -1,20 +1,20 @@
-package com.example.recruit.contant;
+package com.example.recruit.controller;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.extra.cglib.CglibUtil;
 import cn.hutool.jwt.JWT;
-import cn.hutool.jwt.JWTUtil;
 import com.example.recruit.common.BaseResponse;
+import com.example.recruit.config.RabbitConfig;
+import com.example.recruit.config.RabbitUpdate;
+import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.User;
+import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.service.LoginService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author lldwb
@@ -29,9 +29,10 @@ import java.util.Map;
 public class LoginController extends BaseController {
 
     private final LoginService service;
+    private final RabbitTemplate template;
 
     @PostMapping("/login")
-    public BaseResponse<String> login(User user, String authCode) {
+    public BaseResponse login(User user, String authCode) {
         user = service.login(user, authCode);
         String jwt = JWT.create()
                 // 设置签发时间
@@ -44,8 +45,9 @@ public class LoginController extends BaseController {
                 .sign();
         return success(jwt);
     }
+
     @PostMapping("/register")
-    public BaseResponse<String> register(User user, String authCode) {
+    public BaseResponse register(User user, String authCode) {
         user = service.register(user, authCode);
         String jwt = JWT.create()
                 // 设置签发时间
@@ -56,6 +58,13 @@ public class LoginController extends BaseController {
                 .setKey(user.getUserId().toString().getBytes())
                 // 签名生成JWT字符串
                 .sign();
+        template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
         return success(jwt);
+    }
+
+    private UserDoc getUserDoc(User user) {
+        UserDoc userDoc = new UserDoc();
+        CglibUtil.copy(user, userDoc);
+        return userDoc;
     }
 }

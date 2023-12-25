@@ -23,7 +23,6 @@ public class User implements Serializable {
     /**
      * 手机号码
      */
-    @TableId
     private Long userPhone;
 
     /**

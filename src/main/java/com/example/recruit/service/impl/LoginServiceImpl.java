@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
     public User login(User user, String... args) {
         /// 验证码验证逻辑
         if (true) {
-            return userService.getOne(new QueryWrapper<User>().eq("phone", user.getPhone()));
+            return userService.getOne(new QueryWrapper<User>().eq("phone", user.getUserPhone()));
         } else {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -36,6 +36,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public User register(User user, String authCode) {
         userService.save(user);
-        return userService.getById(user.getUserid());
+        return userService.getById(user.getUserId());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.recruit.contant;
+package com.example.recruit.controller;
 
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.common.ErrorCode;

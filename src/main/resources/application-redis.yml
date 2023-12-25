@@ -2,7 +2,7 @@ spring:
   data:
     redis:
       # 使用第0个数据库
-      database: 0
+      database: 1
       # 连接超时时间
       timeout: 1000
       # 密码
