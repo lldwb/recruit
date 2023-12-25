@@ -5,22 +5,23 @@
 <mapper namespace="com.example.recruit.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.example.recruit.domain.User">
-            <id property="userid" column="userId" jdbcType="INTEGER"/>
-            <result property="phone" column="phone" jdbcType="BIGINT"/>
-            <result property="username" column="userName" jdbcType="VARCHAR"/>
-            <result property="gender" column="gender" jdbcType="VARCHAR"/>
-            <result property="age" column="age" jdbcType="INTEGER"/>
-            <result property="nation" column="nation" jdbcType="VARCHAR"/>
-            <result property="stature" column="stature" jdbcType="FLOAT"/>
-            <result property="weight" column="weight" jdbcType="FLOAT"/>
-            <result property="obey" column="obey" jdbcType="TINYINT"/>
-            <result property="putup" column="putUp" jdbcType="TINYINT"/>
+            <id property="userId" column="user_id" jdbcType="INTEGER"/>
+            <id property="userPhone" column="user_phone" jdbcType="BIGINT"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userGender" column="user_gender" jdbcType="VARCHAR"/>
+            <result property="userAge" column="user_age" jdbcType="INTEGER"/>
+            <result property="userNation" column="user_nation" jdbcType="VARCHAR"/>
+            <result property="userStature" column="user_stature" jdbcType="FLOAT"/>
+            <result property="userWeight" column="user_weight" jdbcType="FLOAT"/>
+            <result property="userObey" column="user_obey" jdbcType="TINYINT"/>
+            <result property="userPutUp" column="user_put_up" jdbcType="TINYINT"/>
+            <result property="userState" column="user_state" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        userId,phone,userName,
-        gender,age,nation,
-        stature,weight,obey,
-        putUp
+        user_id,user_phone,user_name,
+        user_gender,user_age,user_nation,
+        user_stature,user_weight,user_obey,
+        user_put_up,user_state
     </sql>
 </mapper>

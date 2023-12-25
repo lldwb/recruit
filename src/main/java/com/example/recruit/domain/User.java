@@ -18,52 +18,58 @@ public class User implements Serializable {
      * id
      */
     @TableId(type = IdType.AUTO)
-    private Integer userid;
+    private Integer userId;
 
     /**
      * 手机号码
      */
-    private Long phone;
+    @TableId
+    private Long userPhone;
 
     /**
      * 用户名
      */
-    private String username;
+    private String userName;
 
     /**
      * 性别
      */
-    private String gender;
+    private String userGender;
 
     /**
      * 年龄
      */
-    private Integer age;
+    private Integer userAge;
 
     /**
      * 民族
      */
-    private String nation;
+    private String userNation;
 
     /**
      * 身高
      */
-    private Double stature;
+    private Double userStature;
 
     /**
      * 体重
      */
-    private Double weight;
+    private Double userWeight;
 
     /**
      * 是否服从分配 0未是 1为否
      */
-    private Integer obey;
+    private Integer userObey;
 
     /**
      * 是否住宿 0未是 1为否
      */
-    private Integer putup;
+    private Integer userPutUp;
+
+    /**
+     * 状态
+     */
+    private Integer userState;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -80,32 +86,34 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) that;
-        return (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
-            && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
-            && (this.getNation() == null ? other.getNation() == null : this.getNation().equals(other.getNation()))
-            && (this.getStature() == null ? other.getStature() == null : this.getStature().equals(other.getStature()))
-            && (this.getWeight() == null ? other.getWeight() == null : this.getWeight().equals(other.getWeight()))
-            && (this.getObey() == null ? other.getObey() == null : this.getObey().equals(other.getObey()))
-            && (this.getPutup() == null ? other.getPutup() == null : this.getPutup().equals(other.getPutup()));
+        return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getUserPhone() == null ? other.getUserPhone() == null : this.getUserPhone().equals(other.getUserPhone()))
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+            && (this.getUserGender() == null ? other.getUserGender() == null : this.getUserGender().equals(other.getUserGender()))
+            && (this.getUserAge() == null ? other.getUserAge() == null : this.getUserAge().equals(other.getUserAge()))
+            && (this.getUserNation() == null ? other.getUserNation() == null : this.getUserNation().equals(other.getUserNation()))
+            && (this.getUserStature() == null ? other.getUserStature() == null : this.getUserStature().equals(other.getUserStature()))
+            && (this.getUserWeight() == null ? other.getUserWeight() == null : this.getUserWeight().equals(other.getUserWeight()))
+            && (this.getUserObey() == null ? other.getUserObey() == null : this.getUserObey().equals(other.getUserObey()))
+            && (this.getUserPutUp() == null ? other.getUserPutUp() == null : this.getUserPutUp().equals(other.getUserPutUp()))
+            && (this.getUserState() == null ? other.getUserState() == null : this.getUserState().equals(other.getUserState()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
-        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
-        result = prime * result + ((getGender() == null) ? 0 : getGender().hashCode());
-        result = prime * result + ((getAge() == null) ? 0 : getAge().hashCode());
-        result = prime * result + ((getNation() == null) ? 0 : getNation().hashCode());
-        result = prime * result + ((getStature() == null) ? 0 : getStature().hashCode());
-        result = prime * result + ((getWeight() == null) ? 0 : getWeight().hashCode());
-        result = prime * result + ((getObey() == null) ? 0 : getObey().hashCode());
-        result = prime * result + ((getPutup() == null) ? 0 : getPutup().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getUserPhone() == null) ? 0 : getUserPhone().hashCode());
+        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
+        result = prime * result + ((getUserGender() == null) ? 0 : getUserGender().hashCode());
+        result = prime * result + ((getUserAge() == null) ? 0 : getUserAge().hashCode());
+        result = prime * result + ((getUserNation() == null) ? 0 : getUserNation().hashCode());
+        result = prime * result + ((getUserStature() == null) ? 0 : getUserStature().hashCode());
+        result = prime * result + ((getUserWeight() == null) ? 0 : getUserWeight().hashCode());
+        result = prime * result + ((getUserObey() == null) ? 0 : getUserObey().hashCode());
+        result = prime * result + ((getUserPutUp() == null) ? 0 : getUserPutUp().hashCode());
+        result = prime * result + ((getUserState() == null) ? 0 : getUserState().hashCode());
         return result;
     }
 
@@ -115,16 +123,17 @@ public class User implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", userid=").append(userid);
-        sb.append(", phone=").append(phone);
-        sb.append(", username=").append(username);
-        sb.append(", gender=").append(gender);
-        sb.append(", age=").append(age);
-        sb.append(", nation=").append(nation);
-        sb.append(", stature=").append(stature);
-        sb.append(", weight=").append(weight);
-        sb.append(", obey=").append(obey);
-        sb.append(", putup=").append(putup);
+        sb.append(", userId=").append(userId);
+        sb.append(", userPhone=").append(userPhone);
+        sb.append(", userName=").append(userName);
+        sb.append(", userGender=").append(userGender);
+        sb.append(", userAge=").append(userAge);
+        sb.append(", userNation=").append(userNation);
+        sb.append(", userStature=").append(userStature);
+        sb.append(", userWeight=").append(userWeight);
+        sb.append(", userObey=").append(userObey);
+        sb.append(", userPutUp=").append(userPutUp);
+        sb.append(", userState=").append(userState);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
