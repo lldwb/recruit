@@ -3,6 +3,7 @@ package com.example.recruit.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.cglib.CglibUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
@@ -10,15 +11,13 @@ import com.example.recruit.doc.PositionDoc;
 import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.Position;
 import com.example.recruit.domain.Unit;
+import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.es.EsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +64,13 @@ public class PositionController extends BaseController {
     @PutMapping("/add")
     public BaseResponse add(Position position) {
         service.save(position);
+        template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getPositionDoc(position)));
+        return success();
+    }
+
+    @PostMapping("/update")
+    public BaseResponse update(Position position){
+        service.update(position, new UpdateWrapper<Position>().eq("positionId", position.getPositionId()));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getPositionDoc(position)));
         return success();
     }
