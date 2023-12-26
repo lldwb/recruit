@@ -8,11 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.common.ErrorCode;
-import com.example.recruit.config.RabbitConfig;
-import com.example.recruit.config.RabbitUpdate;
 import com.example.recruit.domain.Admin;
-import com.example.recruit.domain.User;
-import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.exception.BusinessException;
 import com.example.recruit.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +27,7 @@ import java.util.List;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController extends BaseController {
-    private final AdminService adminService;
+    private final AdminService service;
 
     /**
      * 管理员登录
@@ -41,7 +37,7 @@ public class AdminController extends BaseController {
      */
     @PostMapping("/login")
     public BaseResponse login(Admin admin) {
-        Admin admin1 = adminService.getOne(new QueryWrapper<Admin>().eq("adminName", admin.getAdminName()));
+        Admin admin1 = service.getOne(new QueryWrapper<Admin>().eq("adminName", admin.getAdminName()));
         if (admin1 == null || DigestUtil.sha256Hex(admin.getAdminPwd()).equals(admin1.getAdminPwd())) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -65,8 +61,8 @@ public class AdminController extends BaseController {
      */
     @PostMapping("/addAdmin")
     public BaseResponse addAdmin(Admin admin) {
-        adminService.save(admin);
-        return success(adminService.getById(admin.getAdminId()));
+        service.save(admin);
+        return success(service.getById(admin.getAdminId()));
     }
 
     /**
@@ -77,7 +73,7 @@ public class AdminController extends BaseController {
      */
     @GetMapping("/getAminById")
     public BaseResponse<Admin> getAminById(Integer adminId) {
-        return success(adminService.getById(adminId));
+        return success(service.getById(adminId));
     }
 
     /**
@@ -88,12 +84,12 @@ public class AdminController extends BaseController {
      */
         @GetMapping("/getAdmins")
     public BaseResponse<List<Admin>> getAdmins(Admin admin) {
-        return success(adminService.list(new QueryWrapper<Admin>().allEq(BeanUtil.beanToMap(admin))));
+        return success(service.list(new QueryWrapper<Admin>().allEq(BeanUtil.beanToMap(admin))));
     }
 
     @PutMapping("/updateAdmin")
     public BaseResponse updateAdmin(Admin admin) {
-        adminService.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
+        service.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
         return success();
     }
 
@@ -101,7 +97,7 @@ public class AdminController extends BaseController {
     public BaseResponse deleteAdmin(Integer adminId) {
         Admin admin = new Admin();
         admin.setAdminState(0);
-        adminService.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
+        service.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
         return success();
     }
 }
