@@ -35,25 +35,25 @@ public class UserController extends BaseController {
     private final RabbitTemplate template;
     private final EsService esService;
 
-    @GetMapping("/getUserById")
-    public BaseResponse<User> getUserById(Integer userId) {
-        return success(service.getById(userId));
+    @GetMapping("/getId")
+    public BaseResponse<User> getId(Integer id) {
+        return success(service.getById(id));
     }
 
-    @GetMapping("/getUserByPhone")
-    public BaseResponse<User> getUserByPhone(Integer phone) {
+    @GetMapping("/getPhone")
+    public BaseResponse<User> getPhone(Integer phone) {
         return success(service.getOne(new QueryWrapper<User>().eq("phone", phone)));
     }
 
-    @PutMapping("/updateUser")
-    public BaseResponse updateUser(User user) {
+    @PutMapping("/update")
+    public BaseResponse update(User user) {
         service.update(user, new UpdateWrapper<User>().eq("userId", user.getUserId()));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
         return success();
     }
 
-    @DeleteMapping("/deleteUser")
-    public BaseResponse deleteUser(Integer userId) {
+    @DeleteMapping("/delete")
+    public BaseResponse delete(Integer userId) {
         User user = new User();
         user.setUserState(0);
         service.update(user, new UpdateWrapper<User>().eq("userId", userId));
@@ -61,8 +61,8 @@ public class UserController extends BaseController {
         return success();
     }
 
-    @GetMapping("/getUsers")
-    public BaseResponse<List<User>> getUsers(User user, Integer pageNum, Integer pageSize) {
+    @GetMapping("/getList")
+    public BaseResponse<List<User>> getList(User user, Integer pageNum, Integer pageSize) {
         List<User> list = new ArrayList<>();
         List<UserDoc> docList = esService.listNamesByNames(UserDoc.class, pageNum, pageSize, BeanUtil.beanToMap(user));
         docList.forEach(userDoc -> list.add(getUser(userDoc)));

@@ -59,7 +59,7 @@ public class AdminController extends BaseController {
      * @param admin
      * @return
      */
-    @PutMapping("/addAdmin")
+    @PutMapping("/add")
     public BaseResponse addAdmin(Admin admin) {
         service.save(admin);
         return success(service.getById(admin.getAdminId()));
@@ -68,12 +68,12 @@ public class AdminController extends BaseController {
     /**
      * 根据id返回
      *
-     * @param adminId
+     * @param id
      * @return
      */
-    @GetMapping("/getAminById")
-    public BaseResponse<Admin> getAminById(Integer adminId) {
-        return success(service.getById(adminId));
+    @GetMapping("/getId")
+    public BaseResponse<Admin> getAminById(Integer id) {
+        return success(service.getById(id));
     }
 
     /**
@@ -82,19 +82,19 @@ public class AdminController extends BaseController {
      * @param admin
      * @return
      */
-        @GetMapping("/getAdmins")
-    public BaseResponse<List<Admin>> getAdmins(Admin admin) {
+    @GetMapping("/getList")
+    public BaseResponse<List<Admin>> getList(Admin admin) {
         return success(service.list(new QueryWrapper<Admin>().allEq(BeanUtil.beanToMap(admin))));
     }
 
-    @PutMapping("/updateAdmin")
-    public BaseResponse updateAdmin(Admin admin) {
+    @PutMapping("/update")
+    public BaseResponse update(Admin admin) {
         service.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
         return success();
     }
 
-    @DeleteMapping("/deleteAdmin")
-    public BaseResponse deleteAdmin(Integer adminId) {
+    @DeleteMapping("/delete")
+    public BaseResponse delete(Integer adminId) {
         Admin admin = new Admin();
         admin.setAdminState(0);
         service.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
