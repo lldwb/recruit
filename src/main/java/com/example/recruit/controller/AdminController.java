@@ -59,7 +59,7 @@ public class AdminController extends BaseController {
      * @param admin
      * @return
      */
-    @PostMapping("/addAdmin")
+    @PutMapping("/addAdmin")
     public BaseResponse addAdmin(Admin admin) {
         service.save(admin);
         return success(service.getById(admin.getAdminId()));

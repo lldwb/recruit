@@ -8,6 +8,7 @@ import com.example.recruit.common.BaseResponse;
 import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
 import com.example.recruit.doc.UserDoc;
+import com.example.recruit.domain.Unit;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.service.UserService;

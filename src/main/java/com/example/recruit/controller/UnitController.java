@@ -1,8 +1,11 @@
 package com.example.recruit.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.domain.Region;
-import com.example.recruit.service.RegionService;
+import com.example.recruit.domain.Unit;
+import com.example.recruit.service.UnitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +15,14 @@ import java.util.List;
  * @author lldwb
  * @email 3247187440@qq.com
  * @date 2023/12/26
- * @time 9:13
+ * @time 10:44
  * @PROJECT_NAME recruit
  */
 @RestController
-@RequestMapping("/region")
+@RequestMapping("/unit")
 @RequiredArgsConstructor
-public class RegionController extends BaseController {
-    private final RegionService service;
+public class UnitController extends BaseController{
+    private final UnitService service;
 
     @GetMapping("/getId")
     public BaseResponse getId(Integer id) {
@@ -27,13 +30,15 @@ public class RegionController extends BaseController {
     }
 
     @GetMapping("/getList")
-    public BaseResponse<List<Region>> getList() {
-         return success(service.list());
+    public BaseResponse getList(Unit unit) {
+        return success(service.list(new QueryWrapper<Unit>().allEq(BeanUtil.beanToMap(unit))));
     }
 
     @PutMapping("/add")
-    public BaseResponse add(Region region){
-        service.save(region);
+    public BaseResponse add(Unit unit){
+        service.save(unit);
         return success();
     }
+
+
 }
