@@ -13,12 +13,14 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * 用户文档对象
+ *
  * @author lldwb
  * @email 3247187440@qq.com
  * @date 2023/12/25
  * @time 11:04
  * @PROJECT_NAME recruit
- */@Document(indexName = RedisConfig.ES_INDEX + "user", createIndex = false)
+ */
+@Document(indexName = RedisConfig.ES_INDEX + "user", createIndex = false)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,22 +40,26 @@ public class UserDoc {
 
     /**
      * 用户名
-     */    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+     */
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String userName;
 
     /**
      * 性别
-     */    @Field(type = FieldType.Text)
+     */
+    @Field(type = FieldType.Text)
     private String userGender;
 
     /**
      * 年龄
-     */@Field(type = FieldType.Integer)
+     */
+    @Field(type = FieldType.Integer)
     private Integer userAge;
 
     /**
      * 民族
-     */@Field(type = FieldType.Text)
+     */
+    @Field(type = FieldType.Text)
     private String userNation;
 
     /**
@@ -64,7 +70,8 @@ public class UserDoc {
 
     /**
      * 体重
-     */@Field(type = FieldType.Double)
+     */
+    @Field(type = FieldType.Double)
     private Double userWeight;
 
     /**

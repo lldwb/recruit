@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.recruit.mapper.PositionMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.recruit.domain.Position">
+            <id property="positionId" column="position_id" jdbcType="INTEGER"/>
+            <result property="positionName" column="position_name" jdbcType="VARCHAR"/>
+            <result property="positionSalary" column="position_salary" jdbcType="DECIMAL"/>
+            <result property="positionJobRequirements" column="position_job_requirements" jdbcType="VARCHAR"/>
+            <result property="positionRtatement" column="position_rtatement" jdbcType="VARCHAR"/>
+            <result property="positionArrangement" column="position_arrangement" jdbcType="VARCHAR"/>
+            <result property="positionOtherDescription" column="position_other_description" jdbcType="VARCHAR"/>
+            <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
+            <result property="positionPeriod" column="position_period" jdbcType="VARCHAR"/>
+            <result property="positionPeriodYong" column="position_period_yong" jdbcType="VARCHAR"/>
+            <result property="positionStartTime" column="position_start_time" jdbcType="VARCHAR"/>
+            <result property="positionEndTime" column="position_end_time" jdbcType="VARCHAR"/>
+            <result property="positionHeat" column="position_heat" jdbcType="VARCHAR"/>
+            <result property="positionPositionState" column="position_position_state" jdbcType="VARCHAR"/>
+            <result property="positionAffiliatedUnit" column="position_affiliated_unit" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        position_id,position_name,position_salary,
+        position_job_requirements,position_rtatement,position_arrangement,
+        position_other_description,unit_id,position_period,
+        position_period_yong,position_start_time,position_end_time,
+        position_heat,position_position_state,position_affiliated_unit
+    </sql>
+</mapper>
