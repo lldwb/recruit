@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 收藏
  * @author lldwb
  * @email 3247187440@qq.com
  * @date 2023/12/26
@@ -25,7 +26,7 @@ import java.util.List;
  * @PROJECT_NAME recruit
  */
 @RestController
-@RequestMapping("/position")
+@RequestMapping("/favorite")
 @RequiredArgsConstructor
 public class FavoriteController extends BaseController{
     private final FavoriteService service;

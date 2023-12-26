@@ -18,56 +18,67 @@ public class User implements Serializable {
      * id
      */
     @TableId(type = IdType.AUTO)
+//    @TableField("user_id")
     private Integer userId;
 
     /**
      * 手机号码
      */
+//    @TableField("user_phone")
     private Long userPhone;
 
     /**
      * 用户名
      */
+//    @TableField("user_name")
     private String userName;
 
     /**
      * 性别
      */
+//    @TableField("user_gender")
     private String userGender;
 
     /**
      * 年龄
      */
+//    @TableField("user_age")
     private Integer userAge;
 
     /**
      * 民族
      */
+//    @TableField("user_nation")
     private String userNation;
 
     /**
      * 身高
      */
+//    @TableField("user_stature")
     private Double userStature;
 
     /**
      * 体重
      */
+//    @TableField("user_weight")
     private Double userWeight;
 
     /**
      * 是否服从分配 0未是 1为否
      */
+//    @TableField("user_obey")
     private Integer userObey;
 
     /**
      * 是否住宿 0未是 1为否
      */
+//    @TableField("user_put_up")
     private Integer userPutUp;
 
     /**
-     * 状态
+     * 状态 0为删除
      */
+//    @TableField("user_state")
     private Integer userState;
 
     @TableField(exist = false)
