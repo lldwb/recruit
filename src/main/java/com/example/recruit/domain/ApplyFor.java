@@ -4,14 +4,17 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
+
 import lombok.Data;
 
 /**
  * 申请记录表
+ *
  * @TableName apply_for
  */
-@TableName(value ="apply_for")
+@TableName(value = "apply_for")
 @Data
 public class ApplyFor implements Serializable {
     /**
@@ -55,11 +58,7 @@ public class ApplyFor implements Serializable {
             return false;
         }
         ApplyFor other = (ApplyFor) that;
-        return (this.getApplyForId() == null ? other.getApplyForId() == null : this.getApplyForId().equals(other.getApplyForId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getPositionId() == null ? other.getPositionId() == null : this.getPositionId().equals(other.getPositionId()))
-            && (this.getApplyForState() == null ? other.getApplyForState() == null : this.getApplyForState().equals(other.getApplyForState()))
-            && (this.getApplyForCause() == null ? other.getApplyForCause() == null : this.getApplyForCause().equals(other.getApplyForCause()));
+        return (this.getApplyForId() == null ? other.getApplyForId() == null : this.getApplyForId().equals(other.getApplyForId())) && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId())) && (this.getPositionId() == null ? other.getPositionId() == null : this.getPositionId().equals(other.getPositionId())) && (this.getApplyForState() == null ? other.getApplyForState() == null : this.getApplyForState().equals(other.getApplyForState())) && (this.getApplyForCause() == null ? other.getApplyForCause() == null : this.getApplyForCause().equals(other.getApplyForCause()));
     }
 
     @Override
