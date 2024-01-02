@@ -75,15 +75,21 @@ public class PositionController extends BaseController {
         return success();
     }
 
-    private PositionDoc getPositionDoc(Position position) {
+    private PositionDoc getPositionDoc(Position position){
         PositionDoc positionDoc = new PositionDoc();
-        CglibUtil.copy(position, positionDoc);
+        positionDoc.setPositionId(position.getPositionId());
+        positionDoc.setPositionName(position.getPositionName());
+        positionDoc.setPositionPositionState(position.getPositionPositionState());
+        positionDoc.setPositionAffiliatedUnit(position.getPositionAffiliatedUnit());
         return positionDoc;
     }
 
     private Position getPosition(PositionDoc positionDoc) {
         Position position = new Position();
-        CglibUtil.copy(positionDoc, position);
+        position.setPositionId(positionDoc.getPositionId());
+        position.setPositionName(positionDoc.getPositionName());
+        position.setPositionPositionState(positionDoc.getPositionPositionState());
+        position.setPositionAffiliatedUnit(positionDoc.getPositionAffiliatedUnit());
         return position;
     }
 }

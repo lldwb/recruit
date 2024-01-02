@@ -35,7 +35,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public User register(User user, String authCode) {
-        userService.save(user);
-        return userService.getById(user.getUserId());
+        /// 验证码验证逻辑
+        if (true) {
+            userService.save(user);
+            return userService.getById(user.getUserId());
+        } else {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
     }
 }

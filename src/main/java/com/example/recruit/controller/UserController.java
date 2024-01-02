@@ -69,15 +69,35 @@ public class UserController extends BaseController {
         return success(list);
     }
 
-    private UserDoc getUserDoc(User user) {
+    private UserDoc getUserDoc(User user){
         UserDoc userDoc = new UserDoc();
-        CglibUtil.copy(user, userDoc);
+        userDoc.setUserId(user.getUserId());
+        userDoc.setUserGender(user.getUserGender());
+        userDoc.setUserAge(user.getUserAge());
+        userDoc.setUserName(user.getUserName());
+        userDoc.setUserObey(user.getUserObey());
+        userDoc.setUserNation(user.getUserNation());
+        userDoc.setUserPhone(user.getUserPhone());
+        userDoc.setUserStature(user.getUserStature());
+        userDoc.setUserState(user.getUserState());
+        userDoc.setUserWeight(user.getUserWeight());
+        userDoc.setUserPutUp(user.getUserPutUp());
         return userDoc;
     }
 
     private User getUser(UserDoc userDoc) {
         User user = new User();
-        CglibUtil.copy(userDoc, user);
+        user.setUserId(userDoc.getUserId());
+        user.setUserGender(userDoc.getUserGender());
+        user.setUserAge(userDoc.getUserAge());
+        user.setUserName(userDoc.getUserName());
+        user.setUserObey(userDoc.getUserObey());
+        user.setUserNation(userDoc.getUserNation());
+        user.setUserPhone(userDoc.getUserPhone());
+        user.setUserStature(userDoc.getUserStature());
+        user.setUserState(userDoc.getUserState());
+        user.setUserWeight(userDoc.getUserWeight());
+        user.setUserPutUp(userDoc.getUserPutUp());
         return user;
     }
 }

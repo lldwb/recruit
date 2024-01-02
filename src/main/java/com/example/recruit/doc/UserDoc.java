@@ -41,6 +41,7 @@ public class UserDoc {
     /**
      * 用户名
      */
+
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String userName;
 

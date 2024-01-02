@@ -1,5 +1,6 @@
 package com.example.recruit.service.es.impl;
 
+import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.example.recruit.service.es.EsService;
 import lombok.RequiredArgsConstructor;
@@ -139,9 +140,10 @@ public class EsServiceImpl implements EsService {
             return q.bool(bq -> {
                 List<Query> queries = new ArrayList<>();
                 //创建should查询集合，应用在多个字段上
-                for (String key : map.keySet()) {
-                    if (map.get(key)!=null&&"".equals(map.get(key))){
-                        Query query = Query.of(oq -> oq.term(t -> t.field(key).value(map.get(key).toString())));
+                for (String field : map.keySet()) {
+                    if (map.get(field) != null && !"".equals(map.get(field))) {
+                        //否则构建普通的term查询
+                        Query query = Query.of(oq -> oq.term(t -> t.field(field).value("" + map.get(field))));
                         //构建多个termQuery查询，保存到list集合中
                         queries.add(query);
                     }
@@ -152,7 +154,7 @@ public class EsServiceImpl implements EsService {
         });
         SearchHits<T> hits = operations.search(queryBuilder.build(), docType);
         List<T> list = new ArrayList<>();
-        hits.forEach(tSearchHit -> list.add(tSearchHit.getContent()));
+        hits.forEach(hit -> list.add(hit.getContent()));
         return list;
     }
 }
