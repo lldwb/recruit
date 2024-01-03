@@ -1,7 +1,12 @@
 package com.example.recruit.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.recruit.domain.Position;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
 * @author 32471
@@ -10,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PositionService extends IService<Position> {
 
+    List<Position> list(Map<String,Object> map);
 }

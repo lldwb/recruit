@@ -37,7 +37,7 @@ public class ApplyForController extends BaseController {
 
     @GetMapping("/getList")
     public BaseResponse getList(ApplyFor applyFor) {
-        return success(service.list(new QueryWrapper<ApplyFor>().allEq(BeanUtil.beanToMap(applyFor,false,true))));
+        return success(service.list(new QueryWrapper<ApplyFor>().allEq(BeanUtil.beanToMap(applyFor,true,true))));
     }
 
     @PutMapping("/add")
@@ -48,7 +48,7 @@ public class ApplyForController extends BaseController {
 
     @PostMapping("/update")
     public BaseResponse update(ApplyFor applyFor){
-        service.update(applyFor, new UpdateWrapper<ApplyFor>().eq("applyForId", applyFor.getPositionId()));
+        service.update(applyFor, new UpdateWrapper<ApplyFor>().eq("apply_for_id", applyFor.getApplyForId()));
         return success();
     }
 

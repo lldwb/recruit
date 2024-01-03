@@ -1,7 +1,11 @@
 package com.example.recruit.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.recruit.domain.Position;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
+import java.util.Map;
 
 /**
 * @author 32471
@@ -10,7 +14,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.example.recruit.domain.Position
 */
 public interface PositionMapper extends BaseMapper<Position> {
-
 }
 
 

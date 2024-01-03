@@ -84,12 +84,12 @@ public class AdminController extends BaseController {
      */
     @GetMapping("/getList")
     public BaseResponse<List<Admin>> getList(Admin admin) {
-        return success(service.list(new QueryWrapper<Admin>().allEq(BeanUtil.beanToMap(admin,false,true))));
+        return success(service.list(new QueryWrapper<Admin>().allEq(BeanUtil.beanToMap(admin,true,true))));
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     public BaseResponse update(Admin admin) {
-        service.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
+        service.update(admin, new UpdateWrapper<Admin>().eq("admin_id", admin.getAdminId()));
         return success();
     }
 
@@ -97,7 +97,8 @@ public class AdminController extends BaseController {
     public BaseResponse delete(Integer adminId) {
         Admin admin = new Admin();
         admin.setAdminState(0);
-        service.update(admin, new UpdateWrapper<Admin>().eq("adminId", admin.getAdminId()));
+        admin.setAdminId(adminId);
+        service.update(admin, new UpdateWrapper<Admin>().eq("admin_id", admin.getAdminId()));
         return success();
     }
 }

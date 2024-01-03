@@ -39,12 +39,13 @@ public class PositionDoc {
     /**
      * 所需人数 未招满状态为1(招聘中)，满2000状态为2已招满)
      */
-    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+    @Field(type = FieldType.Integer)
     private String positionPositionState;
 
     /**
      * 所属单位
      */
+
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String positionAffiliatedUnit;
 }

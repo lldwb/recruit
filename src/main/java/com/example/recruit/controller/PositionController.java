@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.cglib.CglibUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
@@ -44,19 +45,19 @@ public class PositionController extends BaseController {
 
     @GetMapping("/getList")
     public BaseResponse getList(Position position) {
-        return success(service.list(new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position,false,true))));
+        return success(service.list(BeanUtil.beanToMap(position,true,true)));
     }
 
     /**
-     * 根据名字、状态、单位搜索职位，但是只能通过名字、状态、单位搜索，用于模糊搜索
+     * 根据名字搜索职位，但是只能通过名字搜索，用于模糊搜索
      *
-     * @param condition
+     * @param position
      * @return
      */
     @GetMapping("/getListPlus")
     public BaseResponse getListPlus(PositionDoc position, Integer pageNum, Integer pageSize) {
         List<Position> list = new ArrayList<>();
-        List<PositionDoc> docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize,BeanUtil.beanToMap(position,false,true));
+        List<PositionDoc> docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize,position.getPositionName(),"positionName");
         docList.forEach(positionDoc -> list.add(getPosition(positionDoc)));
         return success(list);
     }
@@ -70,7 +71,7 @@ public class PositionController extends BaseController {
 
     @PostMapping("/update")
     public BaseResponse update(Position position){
-        service.update(position, new UpdateWrapper<Position>().eq("positionId", position.getPositionId()));
+        service.update(position, new UpdateWrapper<Position>().eq("position_id", position.getPositionId()));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getPositionDoc(position)));
         return success();
     }
