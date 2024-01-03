@@ -44,7 +44,7 @@ public class PositionController extends BaseController {
 
     @GetMapping("/getList")
     public BaseResponse getList(Position position) {
-        return success(service.list(new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position))));
+        return success(service.list(new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position,false,true))));
     }
 
     /**
@@ -54,9 +54,9 @@ public class PositionController extends BaseController {
      * @return
      */
     @GetMapping("/getListPlus")
-    public BaseResponse getListPlus(String condition, Integer pageNum, Integer pageSize) {
+    public BaseResponse getListPlus(PositionDoc position, Integer pageNum, Integer pageSize) {
         List<Position> list = new ArrayList<>();
-        List<PositionDoc> docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize, condition, "positionName", "positionAffiliatedUnit");
+        List<PositionDoc> docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize,BeanUtil.beanToMap(position,false,true));
         docList.forEach(positionDoc -> list.add(getPosition(positionDoc)));
         return success(list);
     }

@@ -31,7 +31,7 @@ public class UnitController extends BaseController{
 
     @GetMapping("/getList")
     public BaseResponse getList(Unit unit) {
-        return success(service.list(new QueryWrapper<Unit>().allEq(BeanUtil.beanToMap(unit))));
+        return success(service.list(new QueryWrapper<Unit>().allEq(BeanUtil.beanToMap(unit,false,true))));
     }
 
     @PutMapping("/add")

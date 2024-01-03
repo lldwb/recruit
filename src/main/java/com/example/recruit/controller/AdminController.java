@@ -84,7 +84,7 @@ public class AdminController extends BaseController {
      */
     @GetMapping("/getList")
     public BaseResponse<List<Admin>> getList(Admin admin) {
-        return success(service.list(new QueryWrapper<Admin>().allEq(BeanUtil.beanToMap(admin))));
+        return success(service.list(new QueryWrapper<Admin>().allEq(BeanUtil.beanToMap(admin,false,true))));
     }
 
     @PutMapping("/update")

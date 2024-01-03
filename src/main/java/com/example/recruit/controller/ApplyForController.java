@@ -37,7 +37,7 @@ public class ApplyForController extends BaseController {
 
     @GetMapping("/getList")
     public BaseResponse getList(ApplyFor applyFor) {
-        return success(service.list(new QueryWrapper<ApplyFor>().allEq(BeanUtil.beanToMap(applyFor))));
+        return success(service.list(new QueryWrapper<ApplyFor>().allEq(BeanUtil.beanToMap(applyFor,false,true))));
     }
 
     @PutMapping("/add")

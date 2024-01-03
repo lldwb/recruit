@@ -24,14 +24,14 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PositionDoc {
     /**
-     * 单位编号
+     * 职位编号
      */
     @Id
     @Field(index = false, type = FieldType.Integer)
     private Integer positionId;
 
     /**
-     * 单位名称
+     * 职位名称
      */
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String positionName;

@@ -38,7 +38,7 @@ public class FavoriteController extends BaseController{
 
     @GetMapping("/getList")
     public BaseResponse getList(Favorite favorite) {
-        return success(service.list(new QueryWrapper<Favorite>().allEq(BeanUtil.beanToMap(favorite))));
+        return success(service.list(new QueryWrapper<Favorite>().allEq(BeanUtil.beanToMap(favorite,false,true))));
     }
 
     @PutMapping("/add")

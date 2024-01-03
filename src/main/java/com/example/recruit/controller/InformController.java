@@ -33,7 +33,7 @@ public class InformController extends BaseController {
 
     @GetMapping("/getList")
     public BaseResponse getList(Inform inform) {
-        return success(service.list(new QueryWrapper<Inform>().allEq(BeanUtil.beanToMap(inform))));
+        return success(service.list(new QueryWrapper<Inform>().allEq(BeanUtil.beanToMap(inform,false,true))));
     }
 
     @PutMapping("/add")

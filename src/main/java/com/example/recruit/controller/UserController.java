@@ -64,7 +64,7 @@ public class UserController extends BaseController {
     @GetMapping("/getList")
     public BaseResponse<List<User>> getList(User user, Integer pageNum, Integer pageSize) {
         List<User> list = new ArrayList<>();
-        List<UserDoc> docList = esService.listNamesByNames(UserDoc.class, pageNum, pageSize, BeanUtil.beanToMap(user));
+        List<UserDoc> docList = esService.listNamesByNames(UserDoc.class, pageNum, pageSize, BeanUtil.beanToMap(user,false,true));
         docList.forEach(userDoc -> list.add(getUser(userDoc)));
         return success(list);
     }
