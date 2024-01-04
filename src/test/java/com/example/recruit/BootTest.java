@@ -1,7 +1,9 @@
 package com.example.recruit;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.extra.cglib.CglibUtil;
+import cn.hutool.jwt.JWT;
 import com.example.recruit.doc.PositionDoc;
 import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.Position;
@@ -91,6 +93,14 @@ public class BootTest {
 
     @Test
     public void textMessage() {
-
+        String jwt = JWT.create()
+                // 设置签发时间
+                .setIssuedAt(DateUtil.date())
+                // 设置过期时间
+                .setExpiresAt(DateUtil.date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))
+                .setPayload("userId", 1)
+                // 签名生成JWT字符串
+                .sign();
+        log.info("jwt：{}",jwt);
     }
 }
