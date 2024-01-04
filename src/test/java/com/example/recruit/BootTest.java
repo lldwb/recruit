@@ -9,6 +9,13 @@ import com.example.recruit.domain.User;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.UserService;
 import com.example.recruit.service.es.EsService;
+import com.tencentcloudapi.common.Credential;
+import com.tencentcloudapi.common.exception.TencentCloudSDKException;
+import com.tencentcloudapi.common.profile.ClientProfile;
+import com.tencentcloudapi.common.profile.HttpProfile;
+import com.tencentcloudapi.sms.v20210111.SmsClient;
+import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
+import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +87,10 @@ public class BootTest {
         userDoc.setUserWeight(user.getUserWeight());
         userDoc.setUserPutUp(user.getUserPutUp());
         return userDoc;
+    }
+
+    @Test
+    public void textMessage() {
+
     }
 }
