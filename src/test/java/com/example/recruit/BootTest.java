@@ -48,18 +48,25 @@ public class BootTest {
         }
     }
 
-    private PositionDoc getPositionDoc(Position position){
-        log.info("Position：{}",position);
+
+    private PositionDoc getPositionDoc(Position position) {
+        log.info("Position：{}", position);
         PositionDoc positionDoc = new PositionDoc();
         positionDoc.setPositionId(position.getPositionId());
         positionDoc.setPositionName(position.getPositionName());
         positionDoc.setPositionPositionState(position.getPositionPositionState());
         positionDoc.setPositionAffiliatedUnit(position.getPositionAffiliatedUnit());
+        positionDoc.setPositionHeat(position.getPositionHeat());
+        positionDoc.setPositionSalary(position.getPositionSalary());
+//        if (!"长期".equals(position.getPositionStartTime())) {
+//            positionDoc.setPositionEndTime(position.getPositionEndTime());
+//            positionDoc.setPositionStartTime(position.getPositionStartTime());
+//        }
         return positionDoc;
     }
 
-    private UserDoc getUserDoc(User user){
-        log.info("User：{}",user);
+    private UserDoc getUserDoc(User user) {
+        log.info("User：{}", user);
         UserDoc userDoc = new UserDoc();
         userDoc.setUserId(user.getUserId());
         userDoc.setUserGender(user.getUserGender());

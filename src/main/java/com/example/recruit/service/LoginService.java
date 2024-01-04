@@ -17,6 +17,4 @@ public interface LoginService {
      * @return
      */
     User login(User user, String... args);
-
-    User register(User user, String authCode);
 }

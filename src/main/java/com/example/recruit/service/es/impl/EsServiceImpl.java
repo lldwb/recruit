@@ -129,11 +129,57 @@ public class EsServiceImpl implements EsService {
     }
 
     @Override
+    public <T> List<T> listNamesByNames(Class<T> docType, String searchParam, String... fields) {
+        // 创建一个NativeQueryBuilder对象
+        NativeQueryBuilder builder = new NativeQueryBuilder();
+        // 设置查询参数
+        builder.withQuery(q -> {
+            return q.multiMatch(m -> m.fields(Arrays.asList(fields)).query(searchParam));
+        });
+        // 执行查询
+        SearchHits<T> hits = operations.search(builder.build(), docType);
+        // 创建一个空的ArrayList对象
+        List<T> list = new ArrayList<>();
+        // 遍历查询结果，将每一条结果添加到ArrayList中
+        hits.forEach(tSearchHit -> list.add(tSearchHit.getContent()));
+        // 返回查询结果
+        return list;
+    }
+
+    @Override
     public <T> List<T> listNamesByNames(Class<T> docType, Integer pageNum, Integer pageSize, Map<String, Object> map) {
         // 创建一个NativeQueryBuilder对象
         NativeQueryBuilder queryBuilder = new NativeQueryBuilder();
         // 设置分页信息
         queryBuilder.withPageable(PageRequest.of(pageNum, pageSize));
+        // 添加 query
+        queryBuilder.withQuery(q -> {
+            //构建布隆查询
+            return q.bool(bq -> {
+                List<Query> queries = new ArrayList<>();
+                //创建should查询集合，应用在多个字段上
+                for (String field : map.keySet()) {
+                    if (map.get(field) != null && !"".equals(map.get(field))) {
+                        //否则构建普通的term查询
+                        Query query = Query.of(oq -> oq.term(t -> t.field(field).value("" + map.get(field))));
+                        //构建多个termQuery查询，保存到list集合中
+                        queries.add(query);
+                    }
+                }
+                bq.should(queries);
+                return bq;
+            });
+        });
+        SearchHits<T> hits = operations.search(queryBuilder.build(), docType);
+        List<T> list = new ArrayList<>();
+        hits.forEach(hit -> list.add(hit.getContent()));
+        return list;
+    }
+
+    @Override
+    public <T> List<T> listNamesByNames(Class<T> docType, Map<String, Object> map) {
+        // 创建一个NativeQueryBuilder对象
+        NativeQueryBuilder queryBuilder = new NativeQueryBuilder();
         // 添加 query
         queryBuilder.withQuery(q -> {
             //构建布隆查询

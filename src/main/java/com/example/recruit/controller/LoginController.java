@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController extends BaseController {
 
     private final LoginService service;
-    private final RabbitTemplate template;
 
     @PostMapping("/login")
     public BaseResponse login(User user, String authCode) {
@@ -39,32 +38,9 @@ public class LoginController extends BaseController {
                 .setIssuedAt(DateUtil.date())
                 // 设置过期时间
                 .setExpiresAt(DateUtil.date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))
-                // 设置用户id
-                .setKey(user.getUserId().toString().getBytes())
+                .setPayload("userId", 1)
                 // 签名生成JWT字符串
                 .sign();
         return success(jwt);
-    }
-
-    @PostMapping("/register")
-    public BaseResponse register(User user, String authCode) {
-        user = service.register(user, authCode);
-        String jwt = JWT.create()
-                // 设置签发时间
-                .setIssuedAt(DateUtil.date())
-                // 设置过期时间
-                .setExpiresAt(DateUtil.date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))
-                // 设置用户id
-                .setKey(user.getUserId().toString().getBytes())
-                // 签名生成JWT字符串
-                .sign();
-        template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
-        return success(jwt);
-    }
-
-    private UserDoc getUserDoc(User user) {
-        UserDoc userDoc = new UserDoc();
-        CglibUtil.copy(user, userDoc);
-        return userDoc;
     }
 }

@@ -16,18 +16,18 @@ import lombok.Data;
 @Data
 public class Position implements Serializable {
     /**
-     * 单位编号
+     * 职位编号
      */
     @TableId(type = IdType.AUTO)
     private Integer positionId;
 
     /**
-     * 单位名称
+     * 职位名称
      */
     private String positionName;
 
     /**
-     * 单位工资
+     * 职位工资
      */
     private BigDecimal positionSalary;
 

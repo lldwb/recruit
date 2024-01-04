@@ -18,68 +18,62 @@ public class User implements Serializable {
      * id
      */
     @TableId(type = IdType.AUTO)
-//    @TableField("user_id")
     private Integer userId;
 
     /**
      * 手机号码
      */
-//    @TableField("user_phone")
     private Long userPhone;
 
     /**
      * 用户名
      */
-//    @TableField("user_name")
     private String userName;
 
     /**
      * 性别
      */
-//    @TableField("user_gender")
     private String userGender;
 
     /**
      * 年龄
      */
-//    @TableField("user_age")
     private Integer userAge;
 
     /**
      * 民族
      */
-//    @TableField("user_nation")
     private String userNation;
 
     /**
      * 身高
      */
-//    @TableField("user_stature")
     private Double userStature;
 
     /**
      * 体重
      */
-//    @TableField("user_weight")
     private Double userWeight;
 
     /**
      * 是否服从分配 0未是 1为否
      */
-//    @TableField("user_obey")
     private Integer userObey;
 
     /**
      * 是否住宿 0未是 1为否
      */
-//    @TableField("user_put_up")
     private Integer userPutUp;
 
     /**
      * 状态 0为删除
      */
-//    @TableField("user_state")
     private Integer userState;
+
+    /**
+     * 头像地址
+     */
+    private String userHeadPortrait;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -106,7 +100,8 @@ public class User implements Serializable {
             && (this.getUserWeight() == null ? other.getUserWeight() == null : this.getUserWeight().equals(other.getUserWeight()))
             && (this.getUserObey() == null ? other.getUserObey() == null : this.getUserObey().equals(other.getUserObey()))
             && (this.getUserPutUp() == null ? other.getUserPutUp() == null : this.getUserPutUp().equals(other.getUserPutUp()))
-            && (this.getUserState() == null ? other.getUserState() == null : this.getUserState().equals(other.getUserState()));
+            && (this.getUserState() == null ? other.getUserState() == null : this.getUserState().equals(other.getUserState()))
+            && (this.getUserHeadPortrait() == null ? other.getUserHeadPortrait() == null : this.getUserHeadPortrait().equals(other.getUserHeadPortrait()));
     }
 
     @Override
@@ -124,6 +119,7 @@ public class User implements Serializable {
         result = prime * result + ((getUserObey() == null) ? 0 : getUserObey().hashCode());
         result = prime * result + ((getUserPutUp() == null) ? 0 : getUserPutUp().hashCode());
         result = prime * result + ((getUserState() == null) ? 0 : getUserState().hashCode());
+        result = prime * result + ((getUserHeadPortrait() == null) ? 0 : getUserHeadPortrait().hashCode());
         return result;
     }
 
@@ -144,6 +140,7 @@ public class User implements Serializable {
         sb.append(", userObey=").append(userObey);
         sb.append(", userPutUp=").append(userPutUp);
         sb.append(", userState=").append(userState);
+        sb.append(", userHeadPortrait=").append(userHeadPortrait);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

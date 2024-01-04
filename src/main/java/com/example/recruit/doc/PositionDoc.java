@@ -46,6 +46,31 @@ public class PositionDoc {
      * 所属单位
      */
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+    @Field(type = FieldType.Text)
     private String positionAffiliatedUnit;
+
+    /**
+     * 职位工资
+     */
+    @Field(type = FieldType.Text)
+    private BigDecimal positionSalary;
+
+
+//    /**
+//     * 用工类型(招聘开始时间)
+//     */
+//    @Field(type = FieldType.Text)
+//    private String positionStartTime;
+//
+//    /**
+//     * 用工类型(招聘结束时间)
+//     */
+//    @Field(type = FieldType.Text)
+//    private String positionEndTime;
+
+    /**
+     * 热度
+     */
+    @Field(type = FieldType.Text)
+    private String positionHeat;
 }

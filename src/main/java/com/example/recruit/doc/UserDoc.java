@@ -91,4 +91,10 @@ public class UserDoc {
      */
     @Field(type = FieldType.Integer)
     private Integer userState;
+
+    /**
+     * 头像地址
+     */
+    @Field(type = FieldType.Text)
+    private String userHeadPortrait;
 }

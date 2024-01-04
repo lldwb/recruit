@@ -1,5 +1,6 @@
 package com.example.recruit.service.es;
 
+import com.example.recruit.doc.UserDoc;
 import org.springframework.data.elasticsearch.core.document.Document;
 
 import java.util.List;
@@ -100,7 +101,16 @@ public interface EsService {
      * @param <T>         Doc对象
      * @return Doc对象集合
      */
-    <T> List<T> listNamesByNames(Class<T> docType, Integer pageNum, Integer pageSize, String searchParam, String... fields);
+    <T> List<T> listNamesByNames(Class<T> docType, Integer pageNum, Integer pageSize, String searchParam, String... fields);    /**
+     * 根据条件查询多个字段的文档记录(multi_Match 单条件多字段)
+     *
+     * @param docType     文档的Class对象
+     * @param searchParam 查询参数
+     * @param fields      检索的字段
+     * @param <T>         Doc对象
+     * @return Doc对象集合
+     */
+    <T> List<T> listNamesByNames(Class<T> docType, String searchParam, String... fields);
 
     /**
      * 根据条件查询多个字段的文档记录
@@ -113,4 +123,14 @@ public interface EsService {
      * @return Doc对象集合
      */
     <T> List<T> listNamesByNames(Class<T> docType, Integer pageNum, Integer pageSize, Map<String, Object> Params);
+
+    /**
+     * 根据条件查询多个字段的文档记录
+     *
+     * @param docType  文档的Class对象
+     * @param map   <检索的字段,查询参数>集合
+     * @param <T>      Doc对象
+     * @return Doc对象集合
+     */
+    <T> List<T> listNamesByNames(Class<T> docType, Map<String, Object> map);
 }

@@ -43,7 +43,7 @@ public class ApplyForController extends BaseController {
     @PutMapping("/add")
     public BaseResponse add(ApplyFor applyFor) {
         service.save(applyFor);
-        return success();
+        return success(applyFor);
     }
 
     @PostMapping("/update")

@@ -45,7 +45,7 @@ public class PositionController extends BaseController {
 
     @GetMapping("/getList")
     public BaseResponse getList(Position position) {
-        return success(service.list(BeanUtil.beanToMap(position,true,true)));
+        return success(service.list(BeanUtil.beanToMap(position, true, true)));
     }
 
     /**
@@ -57,7 +57,12 @@ public class PositionController extends BaseController {
     @GetMapping("/getListPlus")
     public BaseResponse getListPlus(PositionDoc position, Integer pageNum, Integer pageSize) {
         List<Position> list = new ArrayList<>();
-        List<PositionDoc> docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize,position.getPositionName(),"positionName");
+        List<PositionDoc> docList;
+        if (pageNum == null || pageSize == null) {
+            docList = esService.listNamesByNames(PositionDoc.class, position.getPositionName(), "positionName");
+        } else {
+            docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize, position.getPositionName(), "positionName");
+        }
         docList.forEach(positionDoc -> list.add(getPosition(positionDoc)));
         return success(list);
     }
@@ -70,18 +75,24 @@ public class PositionController extends BaseController {
     }
 
     @PostMapping("/update")
-    public BaseResponse update(Position position){
+    public BaseResponse update(Position position) {
         service.update(position, new UpdateWrapper<Position>().eq("position_id", position.getPositionId()));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getPositionDoc(position)));
         return success();
     }
 
-    private PositionDoc getPositionDoc(Position position){
+    private PositionDoc getPositionDoc(Position position) {
         PositionDoc positionDoc = new PositionDoc();
         positionDoc.setPositionId(position.getPositionId());
         positionDoc.setPositionName(position.getPositionName());
         positionDoc.setPositionPositionState(position.getPositionPositionState());
         positionDoc.setPositionAffiliatedUnit(position.getPositionAffiliatedUnit());
+        positionDoc.setPositionHeat(position.getPositionHeat());
+        positionDoc.setPositionSalary(position.getPositionSalary());
+//        if ("长期".equals(position.getPositionStartTime())) {
+//            positionDoc.setPositionEndTime(position.getPositionEndTime());
+//            positionDoc.setPositionStartTime(position.getPositionStartTime());
+//        }
         return positionDoc;
     }
 
@@ -91,6 +102,14 @@ public class PositionController extends BaseController {
         position.setPositionName(positionDoc.getPositionName());
         position.setPositionPositionState(positionDoc.getPositionPositionState());
         position.setPositionAffiliatedUnit(positionDoc.getPositionAffiliatedUnit());
+        position.setPositionHeat(positionDoc.getPositionHeat());
+        position.setPositionSalary(positionDoc.getPositionSalary());
+//        if (positionDoc.getPositionStartTime() == null && "".equals(positionDoc.getPositionStartTime())) {
+//            position.setPositionEndTime("长期");
+//        }else {
+//            position.setPositionEndTime(positionDoc.getPositionEndTime());
+//            position.setPositionStartTime(positionDoc.getPositionStartTime());
+//        }
         return position;
     }
 }

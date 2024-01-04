@@ -16,12 +16,13 @@
             <result property="userObey" column="user_obey" jdbcType="TINYINT"/>
             <result property="userPutUp" column="user_put_up" jdbcType="TINYINT"/>
             <result property="userState" column="user_state" jdbcType="TINYINT"/>
+            <result property="userHeadPortrait" column="user_head_portrait" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         user_id,user_phone,user_name,
         user_gender,user_age,user_nation,
         user_stature,user_weight,user_obey,
-        user_put_up,user_state
+        user_put_up,user_state,user_head_portrait
     </sql>
 </mapper>
