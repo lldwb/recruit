@@ -68,14 +68,14 @@ public class PositionController extends BaseController {
     }
 
     @PutMapping("/add")
-    public BaseResponse add(Position position) {
+    public BaseResponse add(@RequestBody Position position) {
         service.save(position);
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getPositionDoc(position)));
         return success();
     }
 
     @PostMapping("/update")
-    public BaseResponse update(Position position) {
+    public BaseResponse update(@RequestBody Position position) {
         service.update(position, new UpdateWrapper<Position>().eq("position_id", position.getPositionId()));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getPositionDoc(position)));
         return success();

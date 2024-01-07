@@ -42,13 +42,13 @@ public class FavoriteController extends BaseController{
     }
 
     @PutMapping("/add")
-    public BaseResponse add(Favorite favorite) {
+    public BaseResponse add(@RequestBody Favorite favorite) {
         service.save(favorite);
         return success();
     }
 
     @PostMapping("/update")
-    public BaseResponse update(Favorite favorite){
+    public BaseResponse update(@RequestBody Favorite favorite){
         service.update(favorite, new UpdateWrapper<Favorite>().eq("favorite_id", favorite.getFavoriteId()));
         return success();
     }

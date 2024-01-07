@@ -50,14 +50,14 @@ public class ApplyForController extends BaseController {
     }
 
     @PutMapping("/add")
-    public BaseResponse add(ApplyFor applyFor) {
+    public BaseResponse add(@RequestBody ApplyFor applyFor) {
         service.save(applyFor);
         applyFor.setApplyForState("未通过");
         return success(applyFor);
     }
 
     @PostMapping("/update")
-    public BaseResponse update(ApplyFor applyFor) {
+    public BaseResponse update(@RequestBody ApplyFor applyFor) {
         service.update(applyFor, new UpdateWrapper<ApplyFor>().eq("apply_for_id", applyFor.getApplyForId()));
         if ("2".equals(applyFor.getApplyForState())) {
             Position position = new Position();
@@ -70,7 +70,7 @@ public class ApplyForController extends BaseController {
     }
 
     @PostMapping("/consent")
-    public BaseResponse consent(ApplyFor applyFor) {
+    public BaseResponse consent(@RequestBody ApplyFor applyFor) {
         applyFor.setApplyForState("1");
         service.update(applyFor, new UpdateWrapper<ApplyFor>().eq("apply_for_id", applyFor.getApplyForId()));
         applyFor = service.getById(applyFor.getApplyForId());

@@ -35,7 +35,7 @@ public class UnitController extends BaseController{
     }
 
     @PutMapping("/add")
-    public BaseResponse add(Unit unit){
+    public BaseResponse add(@RequestBody Unit unit){
         service.save(unit);
         return success();
     }

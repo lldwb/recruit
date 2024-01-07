@@ -32,7 +32,7 @@ public class RegionController extends BaseController {
     }
 
     @PutMapping("/add")
-    public BaseResponse add(Region region){
+    public BaseResponse add(@RequestBody Region region){
         service.save(region);
         return success();
     }

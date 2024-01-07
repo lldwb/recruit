@@ -60,7 +60,7 @@ public class AdminController extends BaseController {
      * @return
      */
     @PutMapping("/add")
-    public BaseResponse addAdmin(Admin admin) {
+    public BaseResponse add(@RequestBody Admin admin) {
         service.save(admin);
         return success(service.getById(admin.getAdminId()));
     }
@@ -72,7 +72,7 @@ public class AdminController extends BaseController {
      * @return
      */
     @GetMapping("/getId")
-    public BaseResponse<Admin> getAminById(Integer id) {
+    public BaseResponse<Admin> getById(Integer id) {
         return success(service.getById(id));
     }
 
@@ -88,7 +88,7 @@ public class AdminController extends BaseController {
     }
 
     @PostMapping("/update")
-    public BaseResponse update(Admin admin) {
+    public BaseResponse update(@RequestBody Admin admin) {
         service.update(admin, new UpdateWrapper<Admin>().eq("admin_id", admin.getAdminId()));
         return success();
     }

@@ -8,10 +8,7 @@ import com.example.recruit.domain.Unit;
 import com.example.recruit.service.InformService;
 import com.example.recruit.service.UnitService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lldwb
@@ -37,7 +34,7 @@ public class InformController extends BaseController {
     }
 
     @PutMapping("/add")
-    public BaseResponse add(Inform inform){
+    public BaseResponse add(@RequestBody Inform inform){
         service.save(inform);
         return success();
     }
