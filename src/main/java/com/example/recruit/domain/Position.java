@@ -82,9 +82,9 @@ public class Position implements Serializable {
     private String positionHeat;
 
     /**
-     * 所需人数 未招满状态为1(招聘中)，满2000状态为2已招满)
+     *  
      */
-    private String positionPositionState;
+    private Integer positionNumber;
 
     /**
      * 所属单位
@@ -119,7 +119,7 @@ public class Position implements Serializable {
             && (this.getPositionStartTime() == null ? other.getPositionStartTime() == null : this.getPositionStartTime().equals(other.getPositionStartTime()))
             && (this.getPositionEndTime() == null ? other.getPositionEndTime() == null : this.getPositionEndTime().equals(other.getPositionEndTime()))
             && (this.getPositionHeat() == null ? other.getPositionHeat() == null : this.getPositionHeat().equals(other.getPositionHeat()))
-            && (this.getPositionPositionState() == null ? other.getPositionPositionState() == null : this.getPositionPositionState().equals(other.getPositionPositionState()))
+            && (this.getPositionNumber() == null ? other.getPositionNumber() == null : this.getPositionNumber().equals(other.getPositionNumber()))
             && (this.getPositionAffiliatedUnit() == null ? other.getPositionAffiliatedUnit() == null : this.getPositionAffiliatedUnit().equals(other.getPositionAffiliatedUnit()));
     }
 
@@ -140,7 +140,7 @@ public class Position implements Serializable {
         result = prime * result + ((getPositionStartTime() == null) ? 0 : getPositionStartTime().hashCode());
         result = prime * result + ((getPositionEndTime() == null) ? 0 : getPositionEndTime().hashCode());
         result = prime * result + ((getPositionHeat() == null) ? 0 : getPositionHeat().hashCode());
-        result = prime * result + ((getPositionPositionState() == null) ? 0 : getPositionPositionState().hashCode());
+        result = prime * result + ((getPositionNumber() == null) ? 0 : getPositionNumber().hashCode());
         result = prime * result + ((getPositionAffiliatedUnit() == null) ? 0 : getPositionAffiliatedUnit().hashCode());
         return result;
     }
@@ -164,7 +164,7 @@ public class Position implements Serializable {
         sb.append(", positionStartTime=").append(positionStartTime);
         sb.append(", positionEndTime=").append(positionEndTime);
         sb.append(", positionHeat=").append(positionHeat);
-        sb.append(", positionPositionState=").append(positionPositionState);
+        sb.append(", positionNumber=").append(positionNumber);
         sb.append(", positionAffiliatedUnit=").append(positionAffiliatedUnit);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

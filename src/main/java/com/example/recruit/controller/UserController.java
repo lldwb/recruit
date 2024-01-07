@@ -20,6 +20,7 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.simpleframework.xml.core.Validate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -54,13 +55,13 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/getPhone")
-    public BaseResponse<User> getPhone(Integer phone) {
-        return success(service.getOne(new QueryWrapper<User>().eq("phone", phone)));
+    public BaseResponse<User> getPhone(User user) {
+        return success(service.getOne(new QueryWrapper<User>().eq("user_phone", user.getUserPhone())));
     }
 
-    @PutMapping("/update")
-    public BaseResponse update(User user) {
-        service.update(user, new UpdateWrapper<User>().eq("userId", user.getUserId()));
+    @PostMapping("/update")
+    public BaseResponse update(@RequestBody User user) {
+        service.update(user, new UpdateWrapper<User>().eq("user_id", user.getUserId()));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
         return success();
     }
@@ -69,7 +70,7 @@ public class UserController extends BaseController {
     public BaseResponse delete(Integer userId) {
         User user = new User();
         user.setUserState(0);
-        service.update(user, new UpdateWrapper<User>().eq("userId", userId));
+        service.update(user, new UpdateWrapper<User>().eq("user_id", userId));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
         return success();
     }
@@ -115,14 +116,14 @@ public class UserController extends BaseController {
 
             User user = new User();
             user.setUserHeadPortrait(("http://minio.lldwb.top/" + MinIOConfig.BUCKET + "/post/" + sha256Hex));
-            service.update(user, new UpdateWrapper<User>().eq("userId", userId));
+            service.update(user, new UpdateWrapper<User>().eq("user_id", userId));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return success();
     }
 
-    private UserDoc getUserDoc(User user) {
+    public static UserDoc getUserDoc(User user) {
         UserDoc userDoc = new UserDoc();
         userDoc.setUserId(user.getUserId());
         userDoc.setUserGender(user.getUserGender());
@@ -136,10 +137,11 @@ public class UserController extends BaseController {
         userDoc.setUserWeight(user.getUserWeight());
         userDoc.setUserPutUp(user.getUserPutUp());
         userDoc.setUserHeadPortrait(user.getUserHeadPortrait());
+        userDoc.setUserIdentityCard(user.getUserIdentityCard());
         return userDoc;
     }
 
-    private User getUser(UserDoc userDoc) {
+    public static User getUser(UserDoc userDoc) {
         User user = new User();
         user.setUserId(userDoc.getUserId());
         user.setUserGender(userDoc.getUserGender());
@@ -153,6 +155,7 @@ public class UserController extends BaseController {
         user.setUserWeight(userDoc.getUserWeight());
         user.setUserPutUp(userDoc.getUserPutUp());
         user.setUserHeadPortrait(userDoc.getUserHeadPortrait());
+        user.setUserIdentityCard(userDoc.getUserIdentityCard());
         return user;
     }
 }

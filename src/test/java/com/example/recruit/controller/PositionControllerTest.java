@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.recruit.controller.PositionController.getPosition;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -55,23 +56,5 @@ class PositionControllerTest {
         List<PositionDoc> docList = esService.listNamesByNames(PositionDoc.class, 0, 10, "演员","positionName","positionAffiliatedUnit");
         docList.forEach(positionDoc -> list.add(getPosition(positionDoc)));
         log.info("Position：{}",list);
-    }
-
-    private PositionDoc getPositionDoc(Position position) {
-        PositionDoc positionDoc = new PositionDoc();
-        positionDoc.setPositionId(position.getPositionId());
-        positionDoc.setPositionName(position.getPositionName());
-        positionDoc.setPositionPositionState(position.getPositionPositionState());
-        positionDoc.setPositionAffiliatedUnit(position.getPositionAffiliatedUnit());
-        return positionDoc;
-    }
-
-    private Position getPosition(PositionDoc positionDoc) {
-        Position position = new Position();
-        position.setPositionId(positionDoc.getPositionId());
-        position.setPositionName(positionDoc.getPositionName());
-        position.setPositionPositionState(positionDoc.getPositionPositionState());
-        position.setPositionAffiliatedUnit(positionDoc.getPositionAffiliatedUnit());
-        return position;
     }
 }

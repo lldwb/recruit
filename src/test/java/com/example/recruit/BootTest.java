@@ -24,6 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 
+import static com.example.recruit.controller.PositionController.getPositionDoc;
+import static com.example.recruit.controller.UserController.getUserDoc;
+
 /**
  * @author lldwb
  * @email 3247187440@qq.com
@@ -55,40 +58,6 @@ public class BootTest {
         for (User user : userService.list()) {
             template.save(Convert.convert(UserDoc.class, getUserDoc(user)));
         }
-    }
-
-
-    private PositionDoc getPositionDoc(Position position) {
-        log.info("Position：{}", position);
-        PositionDoc positionDoc = new PositionDoc();
-        positionDoc.setPositionId(position.getPositionId());
-        positionDoc.setPositionName(position.getPositionName());
-        positionDoc.setPositionPositionState(position.getPositionPositionState());
-        positionDoc.setPositionAffiliatedUnit(position.getPositionAffiliatedUnit());
-        positionDoc.setPositionHeat(position.getPositionHeat());
-        positionDoc.setPositionSalary(position.getPositionSalary());
-//        if (!"长期".equals(position.getPositionStartTime())) {
-//            positionDoc.setPositionEndTime(position.getPositionEndTime());
-//            positionDoc.setPositionStartTime(position.getPositionStartTime());
-//        }
-        return positionDoc;
-    }
-
-    private UserDoc getUserDoc(User user) {
-        log.info("User：{}", user);
-        UserDoc userDoc = new UserDoc();
-        userDoc.setUserId(user.getUserId());
-        userDoc.setUserGender(user.getUserGender());
-        userDoc.setUserAge(user.getUserAge());
-        userDoc.setUserName(user.getUserName());
-        userDoc.setUserObey(user.getUserObey());
-        userDoc.setUserNation(user.getUserNation());
-        userDoc.setUserPhone(user.getUserPhone());
-        userDoc.setUserStature(user.getUserStature());
-        userDoc.setUserState(user.getUserState());
-        userDoc.setUserWeight(user.getUserWeight());
-        userDoc.setUserPutUp(user.getUserPutUp());
-        return userDoc;
     }
 
     @Test

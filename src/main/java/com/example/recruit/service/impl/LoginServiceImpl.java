@@ -16,6 +16,10 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+
+import static com.example.recruit.controller.UserController.getUserDoc;
+
 /**
  * @author lldwb
  * @email 3247187440@qq.com
@@ -34,10 +38,11 @@ public class LoginServiceImpl implements LoginService {
     public User login(User user, String... args) {
         String authCode = (String) redisTemplate.opsForValue().get(RedisConfig.REDIS_INDEX + "verification_code:" + user.getUserPhone());
 
-        redisTemplate.delete(RedisConfig.REDIS_INDEX + "verification_code:" + user.getUserPhone());
         /// 验证码验证逻辑
-        if (authCode == null || "".equals(authCode) || authCode.equals(args[0])) {
+        if (authCode != null && !"".equals(authCode) && authCode.equals(args[0])) {
+            redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + args[0], args[0], Duration.ofSeconds(1));
             User users = service.getOne(new QueryWrapper<User>().eq("user_phone", user.getUserPhone()));
+            // 判断是否注册
             if (users == null) {
                 service.save(user);
                 template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
@@ -48,22 +53,5 @@ public class LoginServiceImpl implements LoginService {
         } else {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-    }
-
-    private UserDoc getUserDoc(User user) {
-        UserDoc userDoc = new UserDoc();
-        userDoc.setUserId(user.getUserId());
-        userDoc.setUserGender(user.getUserGender());
-        userDoc.setUserAge(user.getUserAge());
-        userDoc.setUserName(user.getUserName());
-        userDoc.setUserObey(user.getUserObey());
-        userDoc.setUserNation(user.getUserNation());
-        userDoc.setUserPhone(user.getUserPhone());
-        userDoc.setUserStature(user.getUserStature());
-        userDoc.setUserState(user.getUserState());
-        userDoc.setUserWeight(user.getUserWeight());
-        userDoc.setUserPutUp(user.getUserPutUp());
-        userDoc.setUserHeadPortrait(user.getUserHeadPortrait());
-        return userDoc;
     }
 }

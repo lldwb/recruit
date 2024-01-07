@@ -18,7 +18,7 @@
             <result property="positionStartTime" column="position_start_time" jdbcType="VARCHAR"/>
             <result property="positionEndTime" column="position_end_time" jdbcType="VARCHAR"/>
             <result property="positionHeat" column="position_heat" jdbcType="VARCHAR"/>
-            <result property="positionPositionState" column="position_position_state" jdbcType="VARCHAR"/>
+            <result property="positionNumber" column="position_number" jdbcType="INTEGER"/>
             <result property="positionAffiliatedUnit" column="position_affiliated_unit" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -27,6 +27,6 @@
         position_job_requirements,position_rtatement,position_arrangement,
         position_other_description,unit_id,position_period,
         position_period_yong,position_start_time,position_end_time,
-        position_heat,position_position_state,position_affiliated_unit
+        position_heat,position_number,position_affiliated_unit
     </sql>
 </mapper>

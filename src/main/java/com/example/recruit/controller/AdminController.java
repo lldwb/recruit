@@ -37,7 +37,7 @@ public class AdminController extends BaseController {
      */
     @PostMapping("/login")
     public BaseResponse login(Admin admin) {
-        Admin admin1 = service.getOne(new QueryWrapper<Admin>().eq("adminName", admin.getAdminName()));
+        Admin admin1 = service.getOne(new QueryWrapper<Admin>().eq("admin_name", admin.getAdminName()));
         if (admin1 == null || DigestUtil.sha256Hex(admin.getAdminPwd()).equals(admin1.getAdminPwd())) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

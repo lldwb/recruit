@@ -1,19 +1,16 @@
 package com.example.recruit.mapper;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.recruit.domain.Position;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
-import java.util.Map;
-
 /**
-* @author 32471
+* @author lldwb
 * @description 针对表【position(职位工作表)】的数据库操作Mapper
-* @createDate 2023-12-26 15:06:52
+* @createDate 2024-01-06 22:50:51
 * @Entity com.example.recruit.domain.Position
 */
 public interface PositionMapper extends BaseMapper<Position> {
+
 }
 
 

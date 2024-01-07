@@ -97,4 +97,10 @@ public class UserDoc {
      */
     @Field(type = FieldType.Text)
     private String userHeadPortrait;
+
+    /**
+     * 身份证
+     */
+    @Field(type = FieldType.Text)
+    private String userIdentityCard;
 }

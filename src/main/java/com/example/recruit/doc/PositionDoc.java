@@ -40,7 +40,7 @@ public class PositionDoc {
      * 所需人数 未招满状态为1(招聘中)，满2000状态为2已招满)
      */
     @Field(type = FieldType.Integer)
-    private String positionPositionState;
+    private Integer positionNumber;
 
     /**
      * 所属单位

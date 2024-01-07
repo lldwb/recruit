@@ -71,6 +71,11 @@ public class User implements Serializable {
     private Integer userState;
 
     /**
+     * 身份证
+     */
+    private String userIdentityCard;
+
+    /**
      * 头像地址
      */
     private String userHeadPortrait;
@@ -101,6 +106,7 @@ public class User implements Serializable {
             && (this.getUserObey() == null ? other.getUserObey() == null : this.getUserObey().equals(other.getUserObey()))
             && (this.getUserPutUp() == null ? other.getUserPutUp() == null : this.getUserPutUp().equals(other.getUserPutUp()))
             && (this.getUserState() == null ? other.getUserState() == null : this.getUserState().equals(other.getUserState()))
+            && (this.getUserIdentityCard() == null ? other.getUserIdentityCard() == null : this.getUserIdentityCard().equals(other.getUserIdentityCard()))
             && (this.getUserHeadPortrait() == null ? other.getUserHeadPortrait() == null : this.getUserHeadPortrait().equals(other.getUserHeadPortrait()));
     }
 
@@ -119,6 +125,7 @@ public class User implements Serializable {
         result = prime * result + ((getUserObey() == null) ? 0 : getUserObey().hashCode());
         result = prime * result + ((getUserPutUp() == null) ? 0 : getUserPutUp().hashCode());
         result = prime * result + ((getUserState() == null) ? 0 : getUserState().hashCode());
+        result = prime * result + ((getUserIdentityCard() == null) ? 0 : getUserIdentityCard().hashCode());
         result = prime * result + ((getUserHeadPortrait() == null) ? 0 : getUserHeadPortrait().hashCode());
         return result;
     }
@@ -140,6 +147,7 @@ public class User implements Serializable {
         sb.append(", userObey=").append(userObey);
         sb.append(", userPutUp=").append(userPutUp);
         sb.append(", userState=").append(userState);
+        sb.append(", userIdentityCard=").append(userIdentityCard);
         sb.append(", userHeadPortrait=").append(userHeadPortrait);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

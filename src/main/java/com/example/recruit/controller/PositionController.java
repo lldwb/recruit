@@ -45,7 +45,7 @@ public class PositionController extends BaseController {
 
     @GetMapping("/getList")
     public BaseResponse getList(Position position) {
-        return success(service.list(BeanUtil.beanToMap(position, true, true)));
+        return success(service.list(new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position, true, true))));
     }
 
     /**
@@ -81,11 +81,11 @@ public class PositionController extends BaseController {
         return success();
     }
 
-    private PositionDoc getPositionDoc(Position position) {
+    public static PositionDoc getPositionDoc(Position position) {
         PositionDoc positionDoc = new PositionDoc();
         positionDoc.setPositionId(position.getPositionId());
         positionDoc.setPositionName(position.getPositionName());
-        positionDoc.setPositionPositionState(position.getPositionPositionState());
+        positionDoc.setPositionNumber(position.getPositionNumber());
         positionDoc.setPositionAffiliatedUnit(position.getPositionAffiliatedUnit());
         positionDoc.setPositionHeat(position.getPositionHeat());
         positionDoc.setPositionSalary(position.getPositionSalary());
@@ -96,11 +96,11 @@ public class PositionController extends BaseController {
         return positionDoc;
     }
 
-    private Position getPosition(PositionDoc positionDoc) {
+    public static Position getPosition(PositionDoc positionDoc) {
         Position position = new Position();
         position.setPositionId(positionDoc.getPositionId());
         position.setPositionName(positionDoc.getPositionName());
-        position.setPositionPositionState(positionDoc.getPositionPositionState());
+        position.setPositionNumber(positionDoc.getPositionNumber());
         position.setPositionAffiliatedUnit(positionDoc.getPositionAffiliatedUnit());
         position.setPositionHeat(positionDoc.getPositionHeat());
         position.setPositionSalary(positionDoc.getPositionSalary());

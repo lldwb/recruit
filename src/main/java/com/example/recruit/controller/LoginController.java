@@ -40,19 +40,25 @@ public class LoginController extends BaseController {
 
     /**
      * 发送验证码
+     *
      * @param user 用户对象
      * @return 成功响应
      */
     @PostMapping("/sendAuthCode")
     public BaseResponse sendAuthCode(User user) throws AuthException {
+        String authCode = (String) redisTemplate.opsForValue().get(RedisConfig.REDIS_INDEX + "verification_code:" + user.getUserPhone());
         if (user == null || user.getUserPhone() == null || "".equals(user.getUserPhone())) {
             throw new AuthException("手机号不能为空");
+        }// 防止重复验证码
+        else if (authCode != null && !"".equals(authCode)) {
+            throw new AuthException("重复验证码");
         }
         AuthCode code = new AuthCode();
         code.setReceivingUser(String.valueOf(user.getUserPhone()));
 
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitAuthCode.ROUTING_KEY, code);
 
+//        redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + code.getReceivingUser(), code.getAuthCode(), Duration.ofSeconds(300));
         redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + code.getReceivingUser(), code.getAuthCode(), Duration.ofSeconds(300));
         return success();
     }
