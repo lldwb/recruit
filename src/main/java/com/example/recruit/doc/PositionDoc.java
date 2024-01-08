@@ -56,17 +56,17 @@ public class PositionDoc {
     private BigDecimal positionSalary;
 
 
-//    /**
-//     * 用工类型(招聘开始时间)
-//     */
-//    @Field(type = FieldType.Text)
-//    private String positionStartTime;
-//
-//    /**
-//     * 用工类型(招聘结束时间)
-//     */
-//    @Field(type = FieldType.Text)
-//    private String positionEndTime;
+    /**
+     * 用工类型(招聘开始时间)
+     */
+    @Field(type = FieldType.Text)
+    private String positionStartTime;
+
+    /**
+     * 用工类型(招聘结束时间)
+     */
+    @Field(type = FieldType.Text)
+    private String positionEndTime;
 
     /**
      * 热度

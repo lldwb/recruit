@@ -1,6 +1,10 @@
 package com.example.recruit.controller.interceptor;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
+import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTHeader;
 import cn.hutool.jwt.JWTUtil;
@@ -26,7 +30,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
-
 
     /**
      * 在调用 Controller 的请求方法之前执行，如果此方法返回false，则请求就不会继续往下执行
@@ -54,6 +57,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 //
 //            jwt.getHeader(JWTHeader.TYPE);
 //            request.setAttribute("userId", jwt.getPayload("userId"));
+//        }
+
+//        String userPhone = request.getParameter("userPhone");
+//        if (userPhone != null && !"".equals(userPhone)) {
+//            request.setAttribute("userPhone",AES.decryptStr(userPhone, CharsetUtil.CHARSET_UTF_8));
+//            request.getAttribute("");
+//            request.getParameter("");
 //        }
         return true;
     }

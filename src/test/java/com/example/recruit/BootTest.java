@@ -49,15 +49,16 @@ public class BootTest {
     @Test
     public void test() {
         esService.deleteIndex(PositionDoc.class);
-        esService.deleteIndex(UserDoc.class);
 
         for (Position position : positionService.list()) {
+            log.info("position：{}",getPositionDoc(position));
             template.save(Convert.convert(PositionDoc.class, getPositionDoc(position)));
         }
 
-        for (User user : userService.list()) {
-            template.save(Convert.convert(UserDoc.class, getUserDoc(user)));
-        }
+//        esService.deleteIndex(UserDoc.class);
+//        for (User user : userService.list()) {
+//            template.save(Convert.convert(UserDoc.class, getUserDoc(user)));
+//        }
     }
 
     @Test

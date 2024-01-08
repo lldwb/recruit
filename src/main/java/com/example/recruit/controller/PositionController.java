@@ -1,7 +1,17 @@
 package com.example.recruit.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.ECKeyUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.SmUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.SM2;
+import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
+import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import cn.hutool.extra.cglib.CglibUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,6 +26,8 @@ import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.es.EsService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -82,6 +94,7 @@ public class PositionController extends BaseController {
     }
 
     public static PositionDoc getPositionDoc(Position position) {
+        ObjectMapper objectMapper = new ObjectMapper();
         PositionDoc positionDoc = new PositionDoc();
         positionDoc.setPositionId(position.getPositionId());
         positionDoc.setPositionName(position.getPositionName());
@@ -89,14 +102,22 @@ public class PositionController extends BaseController {
         positionDoc.setPositionAffiliatedUnit(position.getPositionAffiliatedUnit());
         positionDoc.setPositionHeat(position.getPositionHeat());
         positionDoc.setPositionSalary(position.getPositionSalary());
-//        if ("长期".equals(position.getPositionStartTime())) {
-//            positionDoc.setPositionEndTime(position.getPositionEndTime());
-//            positionDoc.setPositionStartTime(position.getPositionStartTime());
-//        }
+        if (position.getPositionStartTime() != null && !"".equals(position.getPositionStartTime()) && !"长期".equals(position.getPositionStartTime())) {
+            try {
+                positionDoc.setPositionEndTime(objectMapper.writeValueAsString(position.getPositionEndTime().toCharArray()));
+                positionDoc.setPositionStartTime(objectMapper.writeValueAsString(position.getPositionStartTime().toCharArray()));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            positionDoc.setPositionEndTime("长期");
+            positionDoc.setPositionStartTime("长期");
+        }
         return positionDoc;
     }
 
     public static Position getPosition(PositionDoc positionDoc) {
+        ObjectMapper objectMapper = new ObjectMapper();
         Position position = new Position();
         position.setPositionId(positionDoc.getPositionId());
         position.setPositionName(positionDoc.getPositionName());
@@ -104,12 +125,13 @@ public class PositionController extends BaseController {
         position.setPositionAffiliatedUnit(positionDoc.getPositionAffiliatedUnit());
         position.setPositionHeat(positionDoc.getPositionHeat());
         position.setPositionSalary(positionDoc.getPositionSalary());
-//        if (positionDoc.getPositionStartTime() == null && "".equals(positionDoc.getPositionStartTime())) {
-//            position.setPositionEndTime("长期");
-//        }else {
-//            position.setPositionEndTime(positionDoc.getPositionEndTime());
-//            position.setPositionStartTime(positionDoc.getPositionStartTime());
-//        }
+        if ("".equals(positionDoc.getPositionStartTime()) || "长期".equals(positionDoc.getPositionStartTime())) {
+            position.setPositionEndTime("长期");
+            position.setPositionStartTime("长期");
+        } else {
+            position.setPositionEndTime(new String(objectMapper.convertValue(positionDoc.getPositionEndTime(), char[].class)));
+            position.setPositionStartTime(new String(objectMapper.convertValue(positionDoc.getPositionStartTime(), char[].class)));
+        }
         return position;
     }
 }
