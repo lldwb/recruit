@@ -54,18 +54,19 @@ public class LoginInterceptor implements HandlerInterceptor {
         log.info("preHandle：在调用 Controller 的请求方法之前执行，如果此方法返回false，则请求就不会继续往下执行");
         String userId = request.getParameter("userId");
         String userPhone = request.getParameter("userPhone");
-        String adminId =  request.getParameter("adminId");
+        String adminId = request.getParameter("adminId");
         if (adminId != null && !"".equals(adminId)) {
 
-        }else{User user = null;
-            if (userId != null && !"".equals(userId)){
+        } else {
+            User user = null;
+            if (userId != null && !"".equals(userId)) {
                 user = userService.getById(userId);
             }
             if (userPhone != null && !"".equals(userPhone)) {
                 user = userService.getOne(new QueryWrapper<User>().eq("user_phone", userPhone));
             }
-            log.info("user：{}",user);
-            if (user != null && user.getUserState() < 1) {
+            log.info("user：{}", user);
+            if (user != null && user.getUserState() < 0) {
                 throw new BusinessException(ErrorCode.NO_AUTH);
 //                return false;
             }

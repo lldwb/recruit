@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.recruit.common.BaseResponse;
+import com.example.recruit.common.ErrorCode;
 import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
 import com.example.recruit.doc.PositionDoc;
@@ -11,6 +12,7 @@ import com.example.recruit.domain.ApplyFor;
 import com.example.recruit.domain.Position;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
+import com.example.recruit.exception.BusinessException;
 import com.example.recruit.mapper.ApplyForMapper;
 import com.example.recruit.mapper.ApplyForsMapper;
 import com.example.recruit.service.ApplyForService;
@@ -59,6 +61,10 @@ public class ApplyForController extends BaseController {
 
     @PutMapping("/add")
     public BaseResponse add(@RequestBody ApplyFor applyFor) {
+        User user = userService.getById(applyFor.getUserId());
+        if (user != null && user.getUserState() < 1) {
+            throw new BusinessException(ErrorCode.NO_AUTH);
+        }
         service.save(applyFor);
         applyFor.setApplyForState("未通过");
         return success(applyFor);
