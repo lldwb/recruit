@@ -48,6 +48,7 @@ public class LoginServiceImpl implements LoginService {
                 service.save(user);
                 template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
                 return user;
+                // 没有删除
             } else {
                 return users;
             }
