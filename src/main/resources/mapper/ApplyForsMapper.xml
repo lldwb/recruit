@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.recruit.mapper.ApplyForsMapper">
+    <resultMap id="BaseResultMap" type="com.example.recruit.domain.ApplyFors">
+        <id property="applyForId" column="apply_for_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="positionId" column="position_id" jdbcType="INTEGER"/>
+        <result property="applyForState" column="apply_for_state" jdbcType="VARCHAR"/>
+        <result property="applyForCause" column="apply_for_cause" jdbcType="VARCHAR"/>
+        <association property="position">
+            <id property="positionId" column="position_id" jdbcType="INTEGER"/>
+            <result property="positionName" column="position_name" jdbcType="VARCHAR"/>
+            <result property="positionSalary" column="position_salary" jdbcType="DECIMAL"/>
+            <result property="positionJobRequirements" column="position_job_requirements" jdbcType="VARCHAR"/>
+            <result property="positionRtatement" column="position_rtatement" jdbcType="VARCHAR"/>
+            <result property="positionArrangement" column="position_arrangement" jdbcType="VARCHAR"/>
+            <result property="positionOtherDescription" column="position_other_description" jdbcType="VARCHAR"/>
+            <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
+            <result property="positionPeriod" column="position_period" jdbcType="VARCHAR"/>
+            <result property="positionPeriodYong" column="position_period_yong" jdbcType="VARCHAR"/>
+            <result property="positionStartTime" column="position_start_time" jdbcType="VARCHAR"/>
+            <result property="positionEndTime" column="position_end_time" jdbcType="VARCHAR"/>
+            <result property="positionHeat" column="position_heat" jdbcType="VARCHAR"/>
+            <result property="positionNumber" column="position_number" jdbcType="INTEGER"/>
+            <result property="positionAffiliatedUnit" column="position_affiliated_unit" jdbcType="VARCHAR"/>
+        </association>
+        <association property="user">
+            <id property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="userPhone" column="user_phone" jdbcType="BIGINT"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userGender" column="user_gender" jdbcType="VARCHAR"/>
+            <result property="userAge" column="user_age" jdbcType="INTEGER"/>
+            <result property="userNation" column="user_nation" jdbcType="VARCHAR"/>
+            <result property="userStature" column="user_stature" jdbcType="FLOAT"/>
+            <result property="userWeight" column="user_weight" jdbcType="FLOAT"/>
+            <result property="userObey" column="user_obey" jdbcType="TINYINT"/>
+            <result property="userPutUp" column="user_put_up" jdbcType="TINYINT"/>
+            <result property="userState" column="user_state" jdbcType="TINYINT"/>
+            <result property="userIdentityCard" column="user_identity_card" jdbcType="VARCHAR"/>
+            <result property="userHeadPortrait" column="user_head_portrait" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <select id="listAllByPositionId" resultMap="BaseResultMap">
+        select *
+        from apply_for af
+                 join user u on af.user_id = u.user_id
+                 join position p on af.position_id = p.position_id
+        where af.position_id = #{positionId}
+    </select>
+
+    <sql id="Base_Column_List">
+        apply_for_id
+        ,user_id,position_id,
+        apply_for_state,apply_for_cause
+    </sql>
+</mapper>

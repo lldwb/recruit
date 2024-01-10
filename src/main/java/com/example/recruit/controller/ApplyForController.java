@@ -11,6 +11,8 @@ import com.example.recruit.domain.ApplyFor;
 import com.example.recruit.domain.Position;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
+import com.example.recruit.mapper.ApplyForMapper;
+import com.example.recruit.mapper.ApplyForsMapper;
 import com.example.recruit.service.ApplyForService;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.UserService;
@@ -35,6 +37,7 @@ import static com.example.recruit.controller.PositionController.getPositionDoc;
 @RequiredArgsConstructor
 public class ApplyForController extends BaseController {
     private final ApplyForService service;
+    private final ApplyForsMapper applyForsMapper;
     private final UserService userService;
     private final RabbitTemplate template;
     private final PositionService positionService;
@@ -47,6 +50,11 @@ public class ApplyForController extends BaseController {
     @GetMapping("/getList")
     public BaseResponse getList(ApplyFor applyFor) {
         return success(service.list(new QueryWrapper<ApplyFor>().allEq(BeanUtil.beanToMap(applyFor, true, true))));
+    }
+
+    @GetMapping("/listAllByPositionId")
+    public BaseResponse listAllByPositionId(Integer positionId) {
+        return success(applyForsMapper.listAllByPositionId(positionId));
     }
 
     @PutMapping("/add")

@@ -1,7 +1,8 @@
 package com.example.recruit.mapper;
 
-import com.example.recruit.domain.ApplyFor;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.recruit.domain.ApplyFor;
+import com.example.recruit.domain.ApplyFors;
 
 import java.util.List;
 
@@ -11,7 +12,8 @@ import java.util.List;
 * @createDate 2023-12-26 15:36:00
 * @Entity com.example.recruit.domain.ApplyFor
 */
-public interface ApplyForMapper extends BaseMapper<ApplyFor> {
+public interface ApplyForsMapper extends BaseMapper<ApplyFors> {
+    List<ApplyFor> listAllByPositionId(Integer positionId);
 }
 
 
