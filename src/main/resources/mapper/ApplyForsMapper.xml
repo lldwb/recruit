@@ -43,12 +43,23 @@
         </association>
     </resultMap>
 
-    <select id="listAllByPositionId" resultMap="BaseResultMap">
+    <select id="listAll" resultMap="BaseResultMap">
         select *
         from apply_for af
-                 join user u on af.user_id = u.user_id
-                 join position p on af.position_id = p.position_id
-        where af.position_id = #{positionId}
+        join user u on af.user_id = u.user_id
+        join position p on af.position_id = p.position_id
+        <where>
+            1=1
+            <if test="userId != null and userId != 0">
+                and u.user_id = #{userId}
+            </if>
+            <if test="positionId != null and positionId != 0">
+                and af.position_id = #{positionId}
+            </if>
+            <if test="applyForState != null and applyForState != 0">
+                and af.apply_for_state = #{applyForState}
+            </if>
+        </where>
     </select>
 
     <sql id="Base_Column_List">

@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  */
 @Configuration
 public class RedisConfig {
-    public static final String REDIS_INDEX ="file.saving.tool.backend.";
+    public static final String REDIS_INDEX ="lldwb.rabbit.";
     public static final String ES_INDEX ="es_rabbit";
     /**
      * 配置redis的序列化器

@@ -13,7 +13,7 @@ import java.util.List;
 * @Entity com.example.recruit.domain.ApplyFor
 */
 public interface ApplyForsMapper extends BaseMapper<ApplyFors> {
-    List<ApplyFor> listAllByPositionId(Integer positionId);
+    List<ApplyFor> listAll(Integer userId,Integer positionId,Integer applyForState);
 }
 
 

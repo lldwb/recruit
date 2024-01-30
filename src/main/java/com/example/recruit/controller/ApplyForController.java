@@ -1,6 +1,7 @@
 package com.example.recruit.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.recruit.common.BaseResponse;
@@ -9,6 +10,7 @@ import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
 import com.example.recruit.doc.PositionDoc;
 import com.example.recruit.domain.ApplyFor;
+import com.example.recruit.domain.Inform;
 import com.example.recruit.domain.Position;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
@@ -16,6 +18,7 @@ import com.example.recruit.exception.BusinessException;
 import com.example.recruit.mapper.ApplyForMapper;
 import com.example.recruit.mapper.ApplyForsMapper;
 import com.example.recruit.service.ApplyForService;
+import com.example.recruit.service.InformService;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +46,7 @@ public class ApplyForController extends BaseController {
     private final UserService userService;
     private final RabbitTemplate template;
     private final PositionService positionService;
+    private final InformService informService;
 
     @GetMapping("/getId")
     public BaseResponse getId(Integer id) {
@@ -54,9 +58,9 @@ public class ApplyForController extends BaseController {
         return success(service.list(new QueryWrapper<ApplyFor>().allEq(BeanUtil.beanToMap(applyFor, true, true))));
     }
 
-    @GetMapping("/listAllByPositionId")
-    public BaseResponse listAllByPositionId(Integer positionId) {
-        return success(applyForsMapper.listAllByPositionId(positionId));
+    @GetMapping("/listAll")
+    public BaseResponse listAll(Integer userId, Integer positionId, Integer applyForState) {
+        return success(applyForsMapper.listAll(userId, positionId, applyForState));
     }
 
     @PutMapping("/add")
@@ -79,6 +83,14 @@ public class ApplyForController extends BaseController {
             position.setPositionNumber(positionService.getById(position.getPositionId()).getPositionNumber() - 1);
             positionService.update(position, new UpdateWrapper<Position>().eq("position_id", position.getPositionId()));
             template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getPositionDoc(position)));
+        }
+        if (!"3".equals(applyFor.getApplyForState())) {
+            Inform inform = new Inform();
+            inform.setUserId(applyFor.getUserId());
+            inform.setPositionId(applyFor.getPositionId());
+            String message = "用户ID：" + applyFor.getUserId() + "\n\t" + ("1".equals(applyFor.getApplyForState()) ? "恭喜你通过审核" : "不好意思你未通过审核") + "";
+            inform.setInformMessage(message);
+            informService.save(inform);
         }
         return success();
     }

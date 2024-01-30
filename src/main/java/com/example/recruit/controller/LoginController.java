@@ -59,9 +59,9 @@ public class LoginController extends BaseController {
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitAuthCode.ROUTING_KEY, code);
 
         // 验证码过期
-//        redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + code.getReceivingUser(), code.getAuthCode(), Duration.ofSeconds(300));
+        redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + code.getReceivingUser(), code.getAuthCode(), Duration.ofSeconds(300));
         // 验证码不过期(测试)
-        redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + code.getReceivingUser(), code.getAuthCode());
+//        redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + code.getReceivingUser(), code.getAuthCode());
         return success();
     }
 

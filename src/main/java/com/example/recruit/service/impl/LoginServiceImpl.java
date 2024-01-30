@@ -42,6 +42,7 @@ public class LoginServiceImpl implements LoginService {
         if (authCode != null && !"".equals(authCode) && authCode.equals(args[0])) {
             // 验证码过期
 //            redisTemplate.opsForValue().set(RedisConfig.REDIS_INDEX + "verification_code:" + args[0], args[0], Duration.ofSeconds(1));
+            redisTemplate.delete(RedisConfig.REDIS_INDEX + "verification_code:" + args[0]);
             User users = service.getOne(new QueryWrapper<User>().eq("user_phone", user.getUserPhone()));
             // 判断是否注册
             if (users == null) {

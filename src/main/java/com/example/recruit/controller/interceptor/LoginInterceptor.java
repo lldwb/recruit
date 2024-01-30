@@ -51,26 +51,26 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("preHandle：在调用 Controller 的请求方法之前执行，如果此方法返回false，则请求就不会继续往下执行");
-        String userId = request.getParameter("userId");
-        String userPhone = request.getParameter("userPhone");
-        String adminId = request.getParameter("adminId");
-        if (adminId != null && !"".equals(adminId)) {
-
-        } else {
-            User user = null;
-            if (userId != null && !"".equals(userId)) {
-                user = userService.getById(userId);
-            }
-            if (userPhone != null && !"".equals(userPhone)) {
-                user = userService.getOne(new QueryWrapper<User>().eq("user_phone", userPhone));
-            }
-            log.info("user：{}", user);
-            if (user != null && user.getUserState() < 0) {
-                throw new BusinessException(ErrorCode.NO_AUTH);
-//                return false;
-            }
-        }
+//        log.info("preHandle：在调用 Controller 的请求方法之前执行，如果此方法返回false，则请求就不会继续往下执行");
+//        String userId = request.getParameter("userId");
+//        String userPhone = request.getParameter("userPhone");
+//        String adminId = request.getParameter("adminId");
+//        if (adminId != null && !"".equals(adminId)) {
+//
+//        } else {
+//            User user = null;
+//            if (userId != null && !"".equals(userId)) {
+//                user = userService.getById(userId);
+//            }
+//            if (userPhone != null && !"".equals(userPhone)) {
+//                user = userService.getOne(new QueryWrapper<User>().eq("user_phone", userPhone));
+//            }
+//            log.info("user：{}", user);
+//            if (user != null && user.getUserState() < 0) {
+//                throw new BusinessException(ErrorCode.NO_AUTH);
+////                return false;
+//            }
+//        }
 
 
 //        String userId = request.getParameter("userId");
