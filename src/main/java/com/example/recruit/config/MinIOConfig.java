@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 //@ConditionalOnClass(MinioClient.class)
 public class MinIOConfig {
    // 定义url
-    private String url = "http://www:9000";
+    private String url = "http://100.66.64.40:9000";
     // 定义用户名
     private String name = "lldwb";
     // 定义密码

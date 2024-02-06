@@ -2,7 +2,7 @@ spring:
   # 消息队列
   rabbitmq:
     # 连接的主机地址
-    addresses: iprus
+    addresses: 100.122.89.115
     # 连接端口
     port: 5672
     # 账号密码

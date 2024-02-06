@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
+import com.example.recruit.config.RedisConfig;
 import com.example.recruit.doc.PositionDoc;
 import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.Position;
@@ -30,9 +31,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,12 +50,52 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PositionController extends BaseController {
     private final PositionService service;
+    private final RedisTemplate<String, Object> redisTemplate;
     private final RabbitTemplate template;
     private final EsService esService;
 
     @GetMapping("/getId")
-    public BaseResponse getId(Integer id) {
-        return success(service.getById(id));
+    public BaseResponse getId(Integer id, Integer userId) {
+        Position position = service.getById(id);
+        if (position != null && position.getPositionId() != null && userId != null && userId > 0) {
+            // 查看过的用户
+            String positionIdAndUserId = RedisConfig.REDIS_INDEX + "查看过的用户:" + id;
+            if (redisTemplate.opsForSet().add(positionIdAndUserId, userId) == 1) {
+                // 职位热度
+                String jobPopularity = RedisConfig.REDIS_INDEX + "职位热度";
+                if (redisTemplate.hasKey(jobPopularity)){
+                    redisTemplate.opsForZSet().incrementScore(jobPopularity, position, -1);
+                }else{
+                    redisTemplate.opsForZSet().add(jobPopularity, position, 1);
+                }
+                // 历史记录
+                String history = RedisConfig.REDIS_INDEX + "历史记录:" + userId;
+                redisTemplate.opsForZSet().add(history, position, System.nanoTime());
+            }
+        }
+        return success(position);
+    }
+
+    /**
+     * 获取用户历史记录
+     * @param userId
+     * @return
+     */
+    @GetMapping("/history")
+    public BaseResponse history(Integer userId) {
+//        redisTemplate.opsForZSet().("",10);
+        return success();
+    }
+
+    /**
+     * 热度榜单
+     * @return
+     */
+    @GetMapping("heat")
+    public BaseResponse heat(){
+        // 职位热度
+        String jobPopularity = RedisConfig.REDIS_INDEX + "职位热度";
+        return success( redisTemplate.opsForZSet().range(jobPopularity,0,10));
     }
 
     @GetMapping("/getList")

@@ -115,7 +115,7 @@ public class UserController extends BaseController {
             log.info("结束");
 
             User user = new User();
-            user.setUserHeadPortrait(("http://minio.lldwb.top/" + MinIOConfig.BUCKET + "/post/" + sha256Hex));
+            user.setUserHeadPortrait(("http://minio.lldwb.top/" + MinIOConfig.BUCKET + "/" + sha256Hex));
             service.update(user, new UpdateWrapper<User>().eq("user_id", userId));
         } catch (IOException e) {
             throw new RuntimeException(e);

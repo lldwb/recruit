@@ -8,6 +8,6 @@ spring:
       # 密码
       password: "@lldwb_redis"
       # 地址
-      host: www
+      host: 100.66.64.40
       # 端口
       port: 7890
