@@ -117,6 +117,7 @@ public class UserController extends BaseController {
             User user = new User();
             user.setUserHeadPortrait(("http://minio.lldwb.top/" + MinIOConfig.BUCKET + "/" + sha256Hex));
             service.update(user, new UpdateWrapper<User>().eq("user_id", userId));
+            template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
