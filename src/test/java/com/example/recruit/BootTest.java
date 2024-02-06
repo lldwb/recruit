@@ -55,10 +55,10 @@ public class BootTest {
             template.save(Convert.convert(PositionDoc.class, getPositionDoc(position)));
         }
 
-//        esService.deleteIndex(UserDoc.class);
-//        for (User user : userService.list()) {
-//            template.save(Convert.convert(UserDoc.class, getUserDoc(user)));
-//        }
+        esService.deleteIndex(UserDoc.class);
+        for (User user : userService.list()) {
+            template.save(Convert.convert(UserDoc.class, getUserDoc(user)));
+        }
     }
 
     @Test
