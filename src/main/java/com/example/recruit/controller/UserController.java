@@ -90,7 +90,6 @@ public class UserController extends BaseController {
 
     @PutMapping("/addHeadPortrait")
     public BaseResponse HeadPortrait(MultipartFile multipartFile, Integer userId) throws IOException {
-
         try {
             // 获取文件输入流
             InputStream inputStream = multipartFile.getInputStream();
