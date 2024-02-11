@@ -14,6 +14,7 @@ import cn.hutool.extra.cglib.CglibUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.config.RabbitConfig;
@@ -25,6 +26,7 @@ import com.example.recruit.domain.Position;
 import com.example.recruit.domain.Unit;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
+import com.example.recruit.mapper.PositionMapper;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.es.EsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -50,6 +52,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PositionController extends BaseController {
     private final PositionService service;
+    private final PositionMapper mapper;
     private final RedisTemplate<String, Object> redisTemplate;
     private final RabbitTemplate template;
     private final EsService esService;
@@ -63,9 +66,9 @@ public class PositionController extends BaseController {
             if (redisTemplate.opsForSet().add(positionIdAndUserId, userId) == 1) {
                 // 职位热度
                 String jobPopularity = RedisConfig.REDIS_INDEX + "职位热度";
-                if (redisTemplate.hasKey(jobPopularity)){
+                if (redisTemplate.hasKey(jobPopularity)) {
                     redisTemplate.opsForZSet().incrementScore(jobPopularity, position, -1);
-                }else{
+                } else {
                     redisTemplate.opsForZSet().add(jobPopularity, position, 1);
                 }
                 // 历史记录
@@ -78,6 +81,7 @@ public class PositionController extends BaseController {
 
     /**
      * 获取用户历史记录
+     *
      * @param userId
      * @return
      */
@@ -89,18 +93,31 @@ public class PositionController extends BaseController {
 
     /**
      * 热度榜单
+     *
      * @return
      */
     @GetMapping("heat")
-    public BaseResponse heat(){
+    public BaseResponse heat() {
         // 职位热度
         String jobPopularity = RedisConfig.REDIS_INDEX + "职位热度";
-        return success( redisTemplate.opsForZSet().range(jobPopularity,0,10));
+        return success(redisTemplate.opsForZSet().range(jobPopularity, 0, 10));
     }
 
     @GetMapping("/getList")
-    public BaseResponse getList(Position position) {
-        return success(service.list(new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position, true, true))));
+    public BaseResponse getList(Position position, Integer pageNum, Integer pageSize) {
+        if (pageNum == null || pageNum < 0) {
+            pageNum = 0;
+        }
+        if (pageSize == null || pageSize < 0) {
+            pageSize = 10;
+        }
+        IPage page = new Page(pageNum, pageSize);
+        QueryWrapper queryWrapper = new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position, true, true));
+        mapper.selectPage(page, queryWrapper);
+        page.getPages();
+        return success(page);
+
+//        return success(service.list(new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position, true, true))));
     }
 
     /**

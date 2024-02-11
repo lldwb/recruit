@@ -1,7 +1,9 @@
 package com.example.recruit.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.common.ErrorCode;
+import com.example.recruit.common.PageResponse;
 
 /**
  * 它是所有的用户定义Servlet的父类 - 把一些公共操作的代码，抽象提取出来，在父类中定义，子类可以直接使用
@@ -32,6 +34,18 @@ public abstract class BaseController {
      */
     <T> BaseResponse<T> success(T data) {
         return new BaseResponse<>(200, data, "ok");
+    }
+
+    /**
+     * 分页查询成功
+     *
+     * @param iPage
+     * @param <T>
+     * @return
+     */
+    <T> BaseResponse<T> success(IPage iPage) {
+        PageResponse pageResponse = new PageResponse<>(200, iPage.getRecords(), "ok", iPage);
+        return pageResponse;
     }
 
     /**
