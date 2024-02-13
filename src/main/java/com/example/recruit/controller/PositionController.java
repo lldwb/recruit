@@ -139,9 +139,16 @@ public class PositionController extends BaseController {
         return success(list);
     }
 
-
+    /**
+     * 使用地区id返回职位列表
+     *
+     * @param listByRegionId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/listByRegionId")
-    public BaseResponse getListPlus(Integer listByRegionId, Integer pageNum, Integer pageSize) {
+    public BaseResponse listByRegionId(Integer listByRegionId, Integer pageNum, Integer pageSize) {
         List<Position> list = mapper.listByRegionId(listByRegionId, pageNum, pageSize);
         return success(list);
     }
