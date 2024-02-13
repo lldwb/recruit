@@ -15,7 +15,8 @@ import java.io.Serializable;
  */
 @TableName(value = "apply_for")
 @Data
-public class ApplyFors implements Serializable {
+public class
+ApplyFors implements Serializable {
     /**
      * id
      */

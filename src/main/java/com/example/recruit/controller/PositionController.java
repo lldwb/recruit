@@ -139,6 +139,13 @@ public class PositionController extends BaseController {
         return success(list);
     }
 
+
+    @GetMapping("/listByRegionId")
+    public BaseResponse getListPlus(Integer listByRegionId, Integer pageNum, Integer pageSize) {
+        List<Position> list = mapper.listByRegionId(listByRegionId, pageNum, pageSize);
+        return success(list);
+    }
+
     @PutMapping("/add")
     public BaseResponse add(@RequestBody Position position) {
         service.save(position);

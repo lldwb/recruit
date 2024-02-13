@@ -22,6 +22,13 @@
             <result property="positionAffiliatedUnit" column="position_affiliated_unit" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <select id="listByRegionId" resultMap="BaseResultMap">
+        select *
+        from position p
+                 join unit u on p.unit_id = u.unit_id
+        where region_id = #{regionId}
+    </select>
+
     <sql id="Base_Column_List">
         position_id,position_name,position_salary,
         position_job_requirements,position_rtatement,position_arrangement,
