@@ -1,6 +1,6 @@
 # 基镜像使用eclipse-temurin
 FROM eclipse-temurin:21
-# 创建镜像的作者
+# 创建镜像的作者，填写邮箱
 MAINTAINER lldwb324@gmail.com
 # WORKDIR指令设置Dockerfile中的任何RUN，CMD，ENTRPOINT，COPY和ADD指令的工作目录
 WORKDIR /
