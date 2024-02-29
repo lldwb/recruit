@@ -31,6 +31,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class PositionControllerTest {
     @Autowired
+    private PositionController controller;
+    @Autowired
     private PositionService service;
     @Autowired
     private RabbitTemplate template;
@@ -56,5 +58,10 @@ class PositionControllerTest {
         List<PositionDoc> docList = esService.listNamesByNames(PositionDoc.class, 0, 10, "演员","positionName","positionAffiliatedUnit");
         docList.forEach(positionDoc -> list.add(getPosition(positionDoc)));
         log.info("Position：{}",list);
+    }
+
+    @Test
+    void listByRegionId() {
+        log.info(controller.listByRegionId(1,0,10).toString());
     }
 }

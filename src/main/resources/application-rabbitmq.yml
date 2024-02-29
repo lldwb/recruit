@@ -2,12 +2,12 @@ spring:
   # 消息队列
   rabbitmq:
     # 连接的主机地址
-    addresses: iprus
+    addresses: www.dzo-lime.ts.net
     # 连接端口
     port: 5672
     # 账号密码
     username: admin
-    password: "ca171bc0"
+    password: c107eebc
     # 虚拟主机地址
     virtual-host: /
     # 连接超时的时间

@@ -8,6 +8,7 @@ import com.example.recruit.doc.PositionDoc;
 import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.Position;
 import com.example.recruit.domain.User;
+import com.example.recruit.mapper.PositionMapper;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.UserService;
 import com.example.recruit.service.es.EsService;
@@ -40,6 +41,8 @@ public class BootTest {
     @Autowired
     private PositionService positionService;
     @Autowired
+    private PositionMapper positionMapper;
+    @Autowired
     private UserService userService;
     @Autowired
     private EsService esService;
@@ -57,6 +60,7 @@ public class BootTest {
 
         esService.deleteIndex(UserDoc.class);
         for (User user : userService.list()) {
+            log.info("position：{}",getUserDoc(user));
             template.save(Convert.convert(UserDoc.class, getUserDoc(user)));
         }
     }

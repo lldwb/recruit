@@ -10,7 +10,7 @@ spring:
     # 驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     # url
-    url: jdbc:mysql://iprus:3306/recruit
+    url: jdbc:mysql://www.dzo-lime.ts.net:3306/recruit
     # 用户
     username: recruit
     # 密码

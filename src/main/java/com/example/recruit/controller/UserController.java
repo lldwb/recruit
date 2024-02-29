@@ -72,6 +72,7 @@ public class UserController extends BaseController {
         user.setUserState(0);
         service.update(user, new UpdateWrapper<User>().eq("user_id", userId));
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
+        template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
         return success();
     }
 
@@ -114,7 +115,7 @@ public class UserController extends BaseController {
             log.info("结束");
 
             User user = new User();
-            user.setUserHeadPortrait(("http://minio.lldwb.top/" + MinIOConfig.BUCKET + "/" + sha256Hex));
+            user.setUserHeadPortrait(("https://minio.lldwb.top/" + MinIOConfig.BUCKET + "/" + sha256Hex));
             service.update(user, new UpdateWrapper<User>().eq("user_id", userId));
             template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(getUserDoc(user)));
         } catch (IOException e) {
