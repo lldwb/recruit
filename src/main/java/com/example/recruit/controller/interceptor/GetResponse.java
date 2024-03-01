@@ -49,8 +49,9 @@ public class GetResponse implements ResponseBodyAdvice<Object> {
 
         String method = serverHttpRequest.getMethod().toString();
         String URL = RedisConfig.REDIS_INDEX + "URL:" + method + ":" + serverHttpRequest.getURI().getRawPath() + "?" + serverHttpRequest.getURI().getQuery();
-        log.info(URL);
-        log.info(body.toString());
+        
+//        log.info(URL);
+//        log.info(body.toString());
 
         if ("GET".equals(method)) {
             log.info("完整查询地址：" + URL);
