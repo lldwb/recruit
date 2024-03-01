@@ -22,6 +22,7 @@ import com.example.recruit.service.InformService;
 import com.example.recruit.service.PositionService;
 import com.example.recruit.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,7 @@ import static com.example.recruit.controller.PositionController.getPositionDoc;
  * @time 15:36
  * @PROJECT_NAME recruit
  */
+@Slf4j
 @RestController
 @RequestMapping("/applyFor")
 @RequiredArgsConstructor
@@ -107,5 +109,4 @@ public class ApplyForController extends BaseController {
         template.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitUpdate.ROUTING_KEY, UpdateMessage.getUpdateMessage(UserController.getUserDoc(user)));
         return success();
     }
-
 }
