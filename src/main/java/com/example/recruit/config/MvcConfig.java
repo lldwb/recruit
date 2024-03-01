@@ -1,5 +1,6 @@
 package com.example.recruit.config;
 
+import com.example.recruit.controller.interceptor.GetInterceptor;
 import com.example.recruit.controller.interceptor.LoginInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -21,16 +22,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class MvcConfig implements WebMvcConfigurer {
     private final LoginInterceptor loginInterceptor;
+    private final GetInterceptor getInterceptor;
+
     /**
      * 装配拦截器
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        // 登录拦截器
         registry.addInterceptor(loginInterceptor)
                 // 拦截的请求
                 .addPathPatterns("/**");
-                // 排除的请求
+        // 排除的请求
 //                .excludePathPatterns("//*.js", "/*/login");
+        // 查询拦截器
+        registry.addInterceptor(getInterceptor).addPathPatterns("/**");
     }
 
     /**
