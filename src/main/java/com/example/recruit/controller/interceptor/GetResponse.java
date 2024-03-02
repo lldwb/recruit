@@ -53,7 +53,9 @@ public class GetResponse implements ResponseBodyAdvice<Object> {
 //        log.info(URL);
 //        log.info(body.toString());
 
+        // 拦截查询的返回响应
         if ("GET".equals(method)) {
+            // 设置用户和申请职位没有缓存
             if (!(method.contains("applyFor") && method.contains("user"))) {
                 log.info("完整查询地址：" + URL);
                 BaseResponse baseResponse = (BaseResponse) body;
