@@ -1,6 +1,5 @@
 package com.example.recruit.service.es;
 
-import com.example.recruit.doc.UserDoc;
 import org.springframework.data.elasticsearch.core.document.Document;
 
 import java.util.List;

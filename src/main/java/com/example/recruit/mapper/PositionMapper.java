@@ -1,6 +1,5 @@
 package com.example.recruit.mapper;
 
-import com.example.recruit.domain.ApplyFor;
 import com.example.recruit.domain.Position;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

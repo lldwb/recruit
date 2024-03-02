@@ -1,7 +1,5 @@
 package com.example.recruit.doc;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.example.recruit.config.RedisConfig;
 import lombok.AllArgsConstructor;
 import lombok.Data;

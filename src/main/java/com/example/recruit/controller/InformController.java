@@ -4,9 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.domain.Inform;
-import com.example.recruit.domain.Unit;
 import com.example.recruit.service.InformService;
-import com.example.recruit.service.UnitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

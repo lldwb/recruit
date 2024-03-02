@@ -1,21 +1,18 @@
 package com.example.recruit.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.common.ErrorCode;
 import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
-import com.example.recruit.doc.PositionDoc;
 import com.example.recruit.domain.ApplyFor;
 import com.example.recruit.domain.Inform;
 import com.example.recruit.domain.Position;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.exception.BusinessException;
-import com.example.recruit.mapper.ApplyForMapper;
 import com.example.recruit.mapper.ApplyForsMapper;
 import com.example.recruit.service.ApplyForService;
 import com.example.recruit.service.InformService;
@@ -25,9 +22,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.recruit.controller.PositionController.getPositionDoc;
 

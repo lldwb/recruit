@@ -1,29 +1,12 @@
 package com.example.recruit.controller.interceptor;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
-import cn.hutool.crypto.symmetric.SymmetricCrypto;
-import cn.hutool.jwt.JWT;
-import cn.hutool.jwt.JWTHeader;
-import cn.hutool.jwt.JWTUtil;
-import cn.hutool.jwt.JWTValidator;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.recruit.common.ErrorCode;
-import com.example.recruit.domain.User;
-import com.example.recruit.exception.BusinessException;
-import com.example.recruit.mapper.UserMapper;
 import com.example.recruit.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 进行登录会话的检测
@@ -47,10 +30,9 @@ public class LoginInterceptor implements HandlerInterceptor {
      * @param response current HTTP response
      * @param handler  chosen handler to execute, for type and/or instance evaluation
      * @return
-     * @throws Exception
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 //        log.info("preHandle：在调用 Controller 的请求方法之前执行，如果此方法返回false，则请求就不会继续往下执行");
 //        String userId = request.getParameter("userId");
 //        String userPhone = request.getParameter("userPhone");

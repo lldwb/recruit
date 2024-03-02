@@ -2,7 +2,6 @@ package com.example.recruit.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.crypto.digest.DigestUtil;
-import cn.hutool.extra.cglib.CglibUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.recruit.common.BaseResponse;
@@ -10,7 +9,6 @@ import com.example.recruit.config.MinIOConfig;
 import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
 import com.example.recruit.doc.UserDoc;
-import com.example.recruit.domain.Unit;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.service.UserService;
@@ -20,13 +18,10 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.simpleframework.xml.core.Validate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -90,7 +85,7 @@ public class UserController extends BaseController {
     }
 
     @PutMapping("/addHeadPortrait")
-    public BaseResponse HeadPortrait(MultipartFile multipartFile, Integer userId) throws IOException {
+    public BaseResponse HeadPortrait(MultipartFile multipartFile, Integer userId) {
         try {
             // 获取文件输入流
             InputStream inputStream = multipartFile.getInputStream();

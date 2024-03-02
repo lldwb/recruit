@@ -1,6 +1,5 @@
 package com.example.recruit.service.es.impl;
 
-import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.example.recruit.service.es.EsService;
 import lombok.RequiredArgsConstructor;

@@ -4,18 +4,10 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.recruit.common.BaseResponse;
-import com.example.recruit.config.RabbitConfig;
-import com.example.recruit.config.RabbitUpdate;
-import com.example.recruit.doc.PositionDoc;
 import com.example.recruit.domain.Favorite;
-import com.example.recruit.domain.Position;
-import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.service.FavoriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 收藏

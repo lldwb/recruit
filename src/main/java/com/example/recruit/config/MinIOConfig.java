@@ -17,11 +17,11 @@ import org.springframework.context.annotation.Configuration;
 //@ConditionalOnClass(MinioClient.class)
 public class MinIOConfig {
    // 定义url
-    private String url = "http://www:9000";
+    private final String url = "http://www:9000";
     // 定义用户名
-    private String name = "lldwb";
+    private final String name = "lldwb";
     // 定义密码
-    private String pass = "98b058becd731";
+    private final String pass = "98b058becd731";
     // 定义桶名
     public static final String BUCKET = "recruit";
 

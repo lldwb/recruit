@@ -3,13 +3,10 @@ package com.example.recruit.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.recruit.common.BaseResponse;
-import com.example.recruit.domain.Region;
 import com.example.recruit.domain.Unit;
 import com.example.recruit.service.UnitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author lldwb

@@ -3,8 +3,6 @@ package com.example.recruit.mapper;
 import com.example.recruit.domain.ApplyFor;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
-
 /**
 * @author 32471
 * @description 针对表【apply_for(申请记录表)】的数据库操作Mapper

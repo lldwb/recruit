@@ -1,17 +1,11 @@
 package com.example.recruit.controller;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.extra.cglib.CglibUtil;
-import cn.hutool.jwt.JWT;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.config.RabbitAuthCode;
 import com.example.recruit.config.RabbitConfig;
-import com.example.recruit.config.RabbitUpdate;
 import com.example.recruit.config.RedisConfig;
-import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.AuthCode;
-import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.service.LoginService;
 import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;

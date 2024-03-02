@@ -8,14 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.io.OutputStream;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 
 /**
  * 查询拦截器(用于解决削峰的问题)

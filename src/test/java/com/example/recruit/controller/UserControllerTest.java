@@ -1,8 +1,6 @@
 package com.example.recruit.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.User;
 import com.example.recruit.service.UserService;
@@ -11,17 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.client.elc.NativeQueryBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.SearchHits;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author lldwb

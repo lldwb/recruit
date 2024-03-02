@@ -1,17 +1,6 @@
 package com.example.recruit.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.ECKeyUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.SmUtil;
-import cn.hutool.crypto.asymmetric.KeyType;
-import cn.hutool.crypto.asymmetric.SM2;
-import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
-import cn.hutool.crypto.symmetric.SymmetricCrypto;
-import cn.hutool.extra.cglib.CglibUtil;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -21,10 +10,7 @@ import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.config.RabbitUpdate;
 import com.example.recruit.config.RedisConfig;
 import com.example.recruit.doc.PositionDoc;
-import com.example.recruit.doc.UserDoc;
 import com.example.recruit.domain.Position;
-import com.example.recruit.domain.Unit;
-import com.example.recruit.domain.User;
 import com.example.recruit.dto.UpdateMessage;
 import com.example.recruit.mapper.PositionMapper;
 import com.example.recruit.service.PositionService;
@@ -37,7 +23,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

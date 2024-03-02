@@ -1,7 +1,5 @@
 package com.example.recruit.service.consumer;
 
-import com.example.recruit.config.RabbitAuthCode;
-import com.example.recruit.config.RabbitConfig;
 import com.example.recruit.controller.LoginController;
 import com.example.recruit.domain.User;
 import com.example.recruit.dto.AuthCode;
@@ -10,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author lldwb

@@ -29,7 +29,7 @@ public class ConsumerUpdate {
 //    private final EsSyncService esSyncService;
 
     @RabbitListener(queues = RabbitUpdate.QUEUE_NAME)
-    public void esUpdate(UpdateMessage updateMessage) throws IntrospectionException, InvocationTargetException, IllegalAccessException, ClassNotFoundException {
+    public void esUpdate(UpdateMessage updateMessage) throws ClassNotFoundException {
         log.info("开始消费"+updateMessage.toString());
         template.save(Convert.convert(Class.forName(updateMessage.getClazz()),updateMessage.getData()));
         log.info("消费成功"+updateMessage.toString());

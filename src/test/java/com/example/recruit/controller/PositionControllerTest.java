@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.example.recruit.controller.PositionController.getPosition;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author lldwb
