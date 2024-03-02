@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 申请记录表
+ * 申请记录表(多表)
  *
  * @TableName apply_for
  */
