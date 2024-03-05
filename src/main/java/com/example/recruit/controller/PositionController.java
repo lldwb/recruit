@@ -115,11 +115,11 @@ public class PositionController extends BaseController {
     public BaseResponse getListPlus(PositionDoc position, Integer pageNum, Integer pageSize) {
         List<Position> list = new ArrayList<>();
         List<PositionDoc> docList;
-        if (pageNum == null || pageSize == null) {
-            docList = esService.listNamesByNames(PositionDoc.class, position.getPositionName(), "positionName");
-        } else {
-            docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize, position.getPositionName(), "positionName");
-        }
+//        if (pageNum == null || pageSize == null) {
+        docList = esService.listNamesByNames(PositionDoc.class, position.getPositionName(), "positionName");
+//        } else {
+//            docList = esService.listNamesByNames(PositionDoc.class, pageNum, pageSize, position.getPositionName(), "positionName");
+//        }
         docList.forEach(positionDoc -> list.add(getPosition(positionDoc)));
         return success(list);
     }
