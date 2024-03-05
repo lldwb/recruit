@@ -101,8 +101,6 @@ public class PositionController extends BaseController {
         mapper.selectPage(page, queryWrapper);
         page.getPages();
         return success(page);
-
-//        return success(service.list(new QueryWrapper<Position>().allEq(BeanUtil.beanToMap(position, true, true))));
     }
 
     /**

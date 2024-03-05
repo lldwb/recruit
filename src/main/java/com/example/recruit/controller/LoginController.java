@@ -1,5 +1,7 @@
 package com.example.recruit.controller;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.jwt.JWT;
 import com.example.recruit.common.BaseResponse;
 import com.example.recruit.config.RabbitAuthCode;
 import com.example.recruit.config.RabbitConfig;
@@ -62,15 +64,18 @@ public class LoginController extends BaseController {
     @PostMapping("/login")
     public BaseResponse login(User user, String authCode) {
         user = service.login(user, authCode);
-//        String jwt = JWT.create()
-//                // 设置签发时间
-//                .setIssuedAt(DateUtil.date())
-//                // 设置过期时间
-//                .setExpiresAt(DateUtil.date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))
-//                .setPayload("userId", user.getUserId())
-//                // 签名生成JWT字符串
-//                .sign();
-//        return success(jwt);
+        // 用户秘钥加密(开发阶段关闭)
+        if (false) {
+            String jwt = JWT.create()
+                    // 设置签发时间
+                    .setIssuedAt(DateUtil.date())
+                    // 设置过期时间
+                    .setExpiresAt(DateUtil.date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))
+                    .setPayload("userId", user.getUserId())
+                    // 签名生成JWT字符串
+                    .sign();
+            return success(jwt);
+        }
         return success(user.getUserId());
     }
 }
