@@ -12,8 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 // 启动mvc注解驱动
 @EnableWebMvc
-// 实现 WebMvcConfigurer接口 用于覆盖默认的配置
 @RequiredArgsConstructor
+// 实现 WebMvcConfigurer接口 用于覆盖默认的配置
 public class MvcConfig implements WebMvcConfigurer {
     private final LoginInterceptor loginInterceptor;
     private final GetInterceptor getInterceptor;
